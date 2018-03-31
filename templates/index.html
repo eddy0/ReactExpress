@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script defer src="/static/js/fontawesome-all.min.js"></script>
+  
+    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/card.css">
+    <!--<link rel="stylesheet" href="/static/css/zhihu.css">-->
+    <link rel="stylesheet" href="/static/css/component.css">
+    
+    <script>
+        const e = (sel, container=document) => container.querySelector(sel)
+
+        const clear = (className, container=document) => {
+            const ele = container.querySelector(`.${className}`)
+            ele.classList.remove(className)
+        }
+
+    </script>
+    <title>homepage</title>
+</head>
+<body>
+<!--header-->
+<header class="navbar navbar-expand-lg">
+    <div class="container">
+        <!--logo-->
+        <a href="#">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="#004D40" height="36" viewBox="0 0 24 24" width="36"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>
+        </a>
+        <!--nav-->
+        <div class="header-navbar">
+            <ul class="nav-items" >
+                <li class="nav-item active">
+                    <a class="nav-link " href="/">BLOG</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">ASK</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">BLOG</a>
+                </li>
+            </ul>
+        
+        </div>
+        <!--search-->
+        
+        <div class="header-search ">
+            <!--searchbar-->
+            <div class="SearchBar" role="search" >
+            <div class="SearchBar-toolWrapper" >
+                        <form class="SearchBar-tool" >
+                            <div class="Popover" >
+                                <div class="SearchBar-input Input-wrapper Input-wrapper--grey" >
+                                    <input type="text"  maxlength="100" value="" autocomplete="off" role="combobox" aria-expanded="false" aria-autocomplete="list" class="Input" placeholder="something you are interested…" >
+                                    <div class="Input-after" >
+                                        <button class="Button SearchBar-searchIcon  Button--primary" aria-label="搜索" type="button">
+                                            <svg viewBox="0 0 16 16" class="Icon Icon--search" style="height:16px;width:16px;"width="16" height="16" aria-hidden="true" > <g ><path d="M12.054 10.864c.887-1.14 1.42-2.57 1.42-4.127C13.474 3.017 10.457 0 6.737 0S0 3.016 0 6.737c0 3.72 3.016 6.737 6.737 6.737 1.556 0 2.985-.533 4.127-1.42l3.103 3.104c.765.46 1.705-.37 1.19-1.19l-3.103-3.104zm-5.317.925c-2.786 0-5.053-2.267-5.053-5.053S3.95 1.684 6.737 1.684 11.79 3.95 11.79 6.737 9.522 11.79 6.736 11.79z"></path></g></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <button class="Button QuestionAskButton SearchBar-askButton Button--primary Button--blue" type="button">ASK</button>
+            </div>
+            </div>
+    
+            <script>
+                const searchBarEvent = () => {
+                    const SearchBar = document.querySelector('.Input')
+                    SearchBar.addEventListener( 'focus', (event) => {
+                        const t = event.target
+                        const p = t.parentElement
+                        if (p.classList.contains('SearchBar-input')) {
+                            let container = e('.SearchBar')
+                            let inputWrapper = e('.SearchBar-input', container)
+                            inputWrapper.classList.add('SearchBar-focusedInput')
+                            inputWrapper.classList.add('is-focus')
+
+                            let searchBtn = e('.SearchBar-searchIcon', container)
+                            searchBtn.classList.add('SearchBar-focusedSearchIcon')
+
+                            let AskBtn = e('.SearchBar-askButton', container)
+                            AskBtn.classList.add('SearchBar-hiddenAskButton')
+                        }
+                    })
+
+                    SearchBar.addEventListener( 'blur', (event) => {
+                        const t = event.target
+                        const p = t.parentElement
+                        if (p.classList.contains('SearchBar-input')) {
+                            let container = e('.SearchBar')
+                            let inputWrapper = e('.SearchBar-input', container)
+                            inputWrapper.classList.remove('SearchBar-focusedInput')
+                            inputWrapper.classList.remove('is-focus')
+
+                            let searchBtn = e('.SearchBar-searchIcon', container)
+                            searchBtn.classList.remove('SearchBar-focusedSearchIcon')
+
+                            let AskBtn = e('.SearchBar-askButton', container)
+                            AskBtn.classList.remove('SearchBar-hiddenAskButton')
+                        }
+                    })
+
+                }
+                searchBarEvent()
+    
+            </script>
+        
+        
+        <!--userinfo-->
+        {% if u.role !== -1 %}
+        <div class="header-userInfo">
+            <div class="header-notification">
+                <button class="button-plain notification" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+                <svg viewBox="0 0 20 22" class="icon icon--news" width="20" height="20" aria-hidden="true" style="height: 20px; width: 20px;"><title></title><g><path d="M2.502 14.08C3.1 10.64 2 3 8.202 1.62 8.307.697 9.08 0 10 0s1.694.697 1.797 1.62C18 3 16.903 10.64 17.497 14.076c.106 1.102.736 1.855 1.7 2.108.527.142.868.66.793 1.206-.075.546-.542.95-1.09.943H1.1C.55 18.34.084 17.936.01 17.39c-.075-.547.266-1.064.794-1.206.963-.253 1.698-1.137 1.698-2.104zM10 22c-1.417.003-2.602-1.086-2.73-2.51-.004-.062.02-.124.063-.17.043-.045.104-.07.166-.07h5c.063 0 .124.025.167.07.044.046.067.108.063.17-.128 1.424-1.313 2.513-2.73 2.51z"></path></g></svg>
+                    <span class="notification-count">15</span>
+                </button>
+            </div>
+    
+         
+            
+            <div class="header-userAvatar">
+                <button class="Button AppHeader-profileEntry  header-userOption Button--plain" aria-haspopup="true" aria-expanded="false">
+                    <img class="Avatar AppHeader-profileAvatar" width="30" height="30" src="http://www.material-ui.com/images/ok-128.jpg" >
+ 
+                </button>
+    
+                <!--popover -->
+                <div class="Popover-content Popover-content--bottom Popover-content--fixed Popover-content--arrowed"
+                     style=" right: -45px;top: 45px; position: absolute; width: 120px">
+                    <span class="Popover-arrow Popover-arrow--bottom" style="left: 59px; top: 0;"></span>
+                    <div class="Menu">
+                        <a class="Button Menu-item AppHeaderProfileMenu-item Button--plain" href=" /people/reverberate-x" >
+                            <svg viewBox="0 0 20 20" class="Icon Button-icon Icon--profile" width="14" height="16" aria-hidden="true"
+                                 style="height: 16px; width: 14px;"><title></title>
+                                <g>
+                                    <path d="M13.4170937,10.9231839 C13.0412306,11.5757324 12.5795351,12.204074 12.6542924,12.7864225 C12.9457074,15.059449 18.2164534,14.5560766 19.4340179,15.8344151 C20,16.4286478 20,16.4978969 20,19.9978966 C13.3887136,19.9271077 6.63736785,19.9978966 0,19.9978966 C0.0272309069,16.4978969 0,16.5202878 0.620443914,15.8344151 C1.92305664,14.3944356 7.20116276,15.1185829 7.40016946,12.7013525 C7.44516228,12.1563518 7.02015319,11.5871442 6.63736814,10.9228381 C4.51128441,7.2323256 3.69679769,4.67956187e-11 10,9.32587341e-14 C16.3032023,-4.66091013e-11 15.4216968,7.4429255 13.4170937,10.9231839 Z"></path>
+                                </g>
+                            </svg>Profile</a>
+                        <a class="Button Menu-item is-active AppHeaderProfileMenu-item Button--plain " href="/settings/profile">
+                            <svg viewBox="0 0 20 20" class="Icon Button-icon Icon--setting" width="14" height="16" aria-hidden="true"
+                                 style="height: 16px; width: 14px;"><title></title>
+                                <g>
+                                    <path d="M18.868 15.185c-.164.096-.315.137-.452.137-.123 0-1.397-.26-1.617-.233-1.355.013-1.782 1.275-1.836 1.74-.055.454 0 .893.19 1.304.138.29.125.577-.067.85-.863.893-2.165 1.016-2.357 1.016-.123 0-.247-.055-.356-.15-.11-.097-.685-1.14-1.07-1.47-1.303-.954-2.246-.328-2.63 0-.397.33-.67.7-.835 1.126-.07.18-.18.302-.33.37-1.354.426-2.918-.92-3.014-1.056-.082-.11-.123-.22-.123-.356-.014-.138.383-1.276.342-1.688-.342-1.9-1.836-1.687-2.096-1.673-.303.014-.604.068-.92.178-.205.056-.396.03-.588-.054-.888-.462-1.137-2.332-1.11-2.51.055-.315.192-.52.438-.604.425-.164.81-.452 1.15-.85.932-1.262.344-2.25 0-2.634-.34-.356-.725-.645-1.15-.81-.137-.04-.233-.15-.328-.315C-.27 6.07.724 4.95.978 4.733c.255-.22.6-.055.723 0 .426.164.878.22 1.344.15C4.7 4.636 4.784 3.14 4.81 2.908c.015-.247-.11-1.29-.136-1.4-.027-.123-.014-.22.027-.315C5.318.178 7.073 0 7.223 0c.178 0 .33.055.44.178.108.124.63 1.11 1 1.4.398.338 1.582.83 2.588.013.398-.273.96-1.288 1.083-1.412.123-.123.26-.178.384-.178 1.56 0 2.33 1.03 2.438 1.22.083.124.096.248.07.37-.03.152-.33 1.153-.262 1.606.366 1.537 1.384 1.742 1.89 1.783.494.027 1.645-.357 1.81-.344.164.014.315.083.424.206.535.31.85 1.715.905 2.14.027.233-.014.44-.11.562-.11.138-1.165.714-1.48 1.112-.855.982-.342 2.25-.068 2.606.26.37 1.22.905 1.288.96.15.137.26.302.315.494.146 1.413-.89 2.387-1.07 2.47zm-8.905-.535c.644 0 1.246-.123 1.822-.356.575-.248 1.082-.59 1.493-1.016.425-.425.754-.92 1-1.495.247-.562.357-1.18.357-1.81 0-.66-.11-1.262-.356-1.825-.248-.562-.577-1.056-1.002-1.48-.41-.427-.918-.756-1.493-1.003-.576-.233-1.178-.357-1.822-.357-.644 0-1.247.124-1.81.357-.56.247-1.067.576-1.478 1.002-.425.425-.768.92-1 1.48-.247.564-.37 1.167-.37 1.826 0 .644.123 1.248.37 1.81.232.563.575 1.07 1 1.495.424.426.917.768 1.48 1.016.56.233 1.164.356 1.808.356z"></path>
+                                </g>
+                            </svg>Setting</a>
+            
+                        <a class="Button Menu-item AppHeaderProfileMenu-item Button--plain" href="/logout" >
+                            <svg viewBox="0 0 20 20" class="Icon Button-icon Icon--logout" width="14" height="16" aria-hidden="true"
+                                 style="height: 16px; width: 14px;"><title></title>
+                                <g>
+                                    <path d="M0 10C0 7.242 1.154 4.58 3.167 2.697c.51-.477 1.31-.45 1.79.06.475.51.45 1.31-.06 1.787C3.37 5.975 2.53 7.91 2.53 10c0 4.118 3.35 7.468 7.47 7.468 4.12 0 7.47-3.35 7.47-7.47 0-2.04-.81-3.948-2.28-5.37-.5-.485-.514-1.286-.028-1.788.485-.5 1.286-.517 1.79-.03C18.915 4.712 20 7.265 20 10c0 5.512-4.486 9.998-10 9.998s-10-4.486-10-10zm8.7-.483V1.26C8.7.564 9.26 0 9.96 0c.695 0 1.26.564 1.26 1.26v8.257c0 .696-.565 1.26-1.26 1.26-.698 0-1.26-.564-1.26-1.26z"></path>
+                                </g>
+                            </svg>Logout</a>
+                      
+                    </div>
+                </div>
+                <script>
+
+                    const __popoverEvent =  () => {
+                        const container = e('.header-userInfo')
+                        
+                        const Option = e('.header-userOption', container)
+                        Option.addEventListener('click', () =>{
+                            const popOver = e('.Popover-content', container)
+                            popOver.classList.toggle('show-option')
+                        })
+
+                        Option.addEventListener('blur', () =>{
+                            const popOver = e('.Popover-content', container)
+                            popOver.classList.remove('show-option')
+                        })
+                        
+                        
+                        
+                        const MenuItem = e('.Menu', container)
+                        MenuItem.addEventListener('mouseover', (event) => {
+                            const t = event.target
+                            if (t.classList.contains('Menu-item')) {
+                                clear('is-active', MenuItem )
+                                event.target.classList.add('is-active')
+                            }
+                        })
+                    }
+                    
+                    __popoverEvent()
+                </script>
+    
+                <!--popover -->
+
+            </div>
+            <!--<a href="/logout"><button class="btn btn-info register">logout</button></a>-->
+        </div>
+        {% else %}
+        <div class="log" >
+        <a href="/login"><button class="btn btn-primary login">login</button></a>
+        <a href="/register"><button class="btn btn-info register">signup</button></a>
+        </div>
+    `   {% endif %}
+    </div>
+
+</header>
+
+<div class="main">
+    <div class="container">
+        <div class="storyCard">
+            <div class="topic">
+                <div style="display: inline-block; font-size: 15px; height: 48px; outline: none; position: relative; transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; color: rgba(0, 0, 0, 0.54); margin-right: 24px; flex: 1 1 0%; white-space: nowrap; width: auto;">
+                    <div style="color: rgba(0, 0, 0, 0.87); height: 56px; line-height: 56px; overflow: hidden; opacity: 1; position: relative; padding-left: 24px; padding-right: 56px; text-overflow: ellipsis; top: 0px; white-space: nowrap;">RECENT</div>
+                </div>
+            
+            </div>
+        </div>
+        <div class="story-body">
+        {% for t in topics %}
+            {{ t }}
+        <div class='card-container'>
+                <span class="card-clear">
+                      <svg class="icon icon-clear" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                </span>
+        
+            <div class="timestamp">
+                published by {{ t.createdTime }}
+            </div>
+        
+            <div class="author">
+                <a href="#" class="author-avatar">
+                    <img src="http://www.material-ui.com/images/ok-128.jpg" alt=""/>
+                </a>
+                <div class="author-detail">
+                    <div class="author-name">
+                        <a href="#"> {{ t.username }}</a>
+                    </div>
+                    <div class="author-signature">
+                        {{ t.note }}
+                    </div>
+            
+                </div>
+            </div>
+        
+            <div class="content-cell">
+                <a href="#" class="content-title">
+                    <span>{{ t.title }}</span>
+                </a>
+                <div class="content-item">
+                        <span class="content-text">
+                           {{ t.brief }}
+                        </span>
+                    <span class='content-expand'>
+                            more
+                            <svg class="icon icon-down" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"/></svg>
+                        </span>
+            
+                </div>
+                <div class="content-action">
+                        <span class="topic-tag front-end">
+                            {{ t.tag }}
+                        </span>
+                
+                    <span class="action-view">
+
+                            <i class='fas fa-eye icon-font icon-view'></i>
+                        <span class="view-count">
+233
+                            </span>
+                            views
+
+                    </span>
+                
+                    <span class="action-comments">
+                            <i class='fas fa-comments icon-font icon-comments' ></i>
+                            <span class="comments-count">
+23
+                            </span>
+comments
+                        </span>
+                
+                    <span class="action-like">
+     <i class='fas fa-heart icon-font icon-like'> </i>
+                            like
+                        </span>
+                
+                    <span class="action-share">
+                            <i class='fas fa-share-alt icon-font icon-share' ></i>
+                            share
+                        </span>
+                </div>
+        
+            </div>
+    
+        </div>
+    
+        {% endfor %}
+        <div class='card-container'>
+                <span class="card-clear">
+                      <svg class="icon icon-clear" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                </span>
+        
+                <div class="timestamp">
+                    published by one hour ago
+                </div>
+        
+                <div class="author">
+                    <a href="#" class="author-avatar">
+                        <img src="http://www.material-ui.com/images/ok-128.jpg" alt=""/>
+                    </a>
+                    <div class="author-detail">
+                        <div class="author-name">
+                            <a href="#"> username</a>
+                        </div>
+                        <div class="author-signature">
+                            nothing is possible
+                        </div>
+            
+                    </div>
+                </div>
+        
+                <div class="content-cell">
+                    <a href="#" class="content-title">
+                        <span>请别以爱的名义盲目催(逼)婚</span>
+                    </a>
+                    <div class="content-item">
+                        <span class="content-text">
+                            只要保证符合 ECMAScript 规范规定的语义，内存里是几份是无所谓的。而且就算是两份，通常你也看不出来只要保证符合 ECMAScript 规范规定的语义，内存里是无所，内存里是无所，内存里是无所谓的。而且就算是两份，通常你也看不出...
+                        </span>
+                        <span class='content-expand'>
+                            more
+                            <svg class="icon icon-down" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"/></svg>
+                        </span>
+            
+                    </div>
+                    <div class="content-action">
+                        <span class="topic-tag front-end">
+                            front-end
+                        </span>
+                
+                        <span class="action-view">
+
+                            <i class='fas fa-eye icon-font icon-view'></i>
+                        <span class="view-count">
+233
+                            </span>
+                            views
+
+                    </span>
+                
+                        <span class="action-comments">
+                            <i class='fas fa-comments icon-font icon-comments' ></i>
+                            <span class="comments-count">
+23
+                            </span>
+comments
+                        </span>
+                
+                        <span class="action-like">
+     <i class='fas fa-heart icon-font icon-like'> </i>
+                            like
+                        </span>
+                
+                        <span class="action-share">
+                            <i class='fas fa-share-alt icon-font icon-share' ></i>
+                            share
+                        </span>
+                    </div>
+        
+                </div>
+    
+            </div>
+        <div class='card-container'>
+                <span class="card-clear">
+                      <svg class="icon icon-clear" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                </span>
+        
+            <div class="timestamp">
+                published by one hour ago
+            </div>
+        
+            <div class="author">
+                <a href="#" class="author-avatar">
+                    <img src="http://www.material-ui.com/images/ok-128.jpg" alt=""/>
+                </a>
+                <div class="author-detail">
+                    <div class="author-name">
+                        <a href="#"> username</a>
+                    </div>
+                    <div class="author-signature">
+                        nothing is possible
+                    </div>
+            
+                </div>
+            </div>
+        
+            <div class="content-cell">
+                <a href="#" class="content-title">
+                    <span>请别以爱的名义盲目催(逼)婚</span>
+                </a>
+                <div class="content-item">
+                        <span class="content-text">
+                            只要保证符合 ECMAScript 规范规定的语义，内存里是几份是无所谓的。而且就算是两份，通常你也看不出来只要保证符合 ECMAScript 规范规定的语义，内存里是无所，内存里是无所，内存里是无所谓的。而且就算是两份，通常你也看不出...
+                        </span>
+                    <span class='content-expand'>
+                            more
+                            <svg class="icon icon-down" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"/></svg>
+                        </span>
+            
+                </div>
+                <div class="content-action">
+                        <span class="topic-tag front-end">
+                            front-end
+                        </span>
+                
+                    <span class="action-view">
+
+                            <i class='fas fa-eye icon-font icon-view'></i>
+                        <span class="view-count">
+233
+                            </span>
+                            views
+
+                    </span>
+                
+                    <span class="action-comments">
+                            <i class='fas fa-comments icon-font icon-comments' ></i>
+                            <span class="comments-count">
+23
+                            </span>
+comments
+                        </span>
+                
+                    <span class="action-like">
+     <i class='fas fa-heart icon-font icon-like'> </i>
+                            like
+                        </span>
+                
+                    <span class="action-share">
+                            <i class='fas fa-share-alt icon-font icon-share' ></i>
+                            share
+                        </span>
+                </div>
+        
+            </div>
+    
+            <div class="comments-container">
+                <div class="comment-bar">
+                    <div class="comments-count">2333Comments
+                    </div>
+                    <div>
+                        Ranking by date
+                    </div>
+                </div>
+        
+                <div class="comments-list">
+                    <div class="comments-item">
+                        <div class="comments-user">
+                            <a href="#" class="userLink">
+                                <img class='userLink-avatar' src="http://www.material-ui.com/images/ok-128.jpg" alt=""/>
+                                <span class='userLink-name'>
+                                        呵呵哒
+                                    </span>
+                            </a>
+                    
+                            <span class="comments-time">
+                                        one day ago
+
+                                    </span>
+                
+                        </div>
+                        <div class="comments-content">
+                                    <span>
+                                        只要保证符合 ECMAScript 规范规定的语义，内存里是几份是无所谓的。而且就算是两份，通常你也看不出来只要保证符合 ECMAScript 规范规定的语义，内存里是无所，内存里是无所，内存里是无所谓的。而且就算是两只要保证符合 ECMAScript 规范规定的语义，内存里是几份是无所谓的。而且就算是两份，通常你也看不出来只要保证符合 ECMAScript 规范规定的语义，内存里是无所，内存里是无所，内存里是无所谓的。而且就算是两只要保证符合 ECMAScript 规范规定的语义，内存里是几份是无所谓的。而且就算是两份，通常你也看不出来只要保证符合 ECMAScript 规范规定的语义，内存里是无所，内存里是无所，内存里是无所谓的。而且就算是两只要保证符合 ECMAScript 规范规定的语义，内存里是几份是无所谓的。而且就算是两份，通常你也看不出来只要保证符合 ECMAScript 规范规定的语义，内存里是无所，内存里是无所，内存里是无所谓的。而且就算是两
+                                    </span>
+                        </div>
+                        <div class="comments-action">
+                            <span>
+                            <FontAwesomeIcon class='icon-font thumb-up' icon={faThumbsUp} /> vote
+                        </span>
+                        </div>
+            
+                    </div>
+            
+                    <div class="comments-item">
+                        <div class="comments-user">
+                            <a href="#" class="userLink">
+                                <img class='userLink-avatar' src="http://www.material-ui.com/images/ok-128.jpg" alt=""/>
+                                <span class='userLink-name'>
+                                        呵呵哒
+                                    </span>
+                            </a>
+                    
+                            <span class="comments-time">
+                                        one day ago
+
+                                    </span>
+                
+                        </div>
+                        <div class="comments-content">
+                                    <span>
+                                        只要保证符合 ECMAScript 规范规定的语义，内存里是几份是无所谓的。而且就算是两份，通常你也看不出来只要保证符合 ECMAScript 规范规定的语义，内存里是无所，内存里是无所，内存里是无所谓的。而且就算是两只要保证符合 ECMAScript 规
+                                    </span>
+                        </div>
+            
+                    </div>
+        
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="write a comment" id="inputDefault" />
+                    <button class='btn btn-outline-secondary btn-sm'>comment</button>
+                </div>
+    
+            </div>
+    
+        </div>
+        </div>
+    </div>
+    <div class="side">
+        <div class='tag'>
+            <div class="tag-header">
+                <span>HOT TAGS</span>
+                <a href='#'>ALL</a>
+            </div>
+            <ul class="tag-list">
+                <li class='tag-item'>
+                    <span class="badge badge-secondary">front-end</span>
+                </li>
+                <li class='tag-item'>
+                    <span class="badge badge-secondary">front-end</span>
+                </li>
+                <li class='tag-item'>
+                    <span class="badge badge-secondary">front-end</span>
+                </li>
+                <li class='tag-item'>
+                    <span class="badge badge-secondary">front-end</span>
+                </li>
+              
+            </ul>
+        </div>
+        
+        <div class='tag'>
+            <div class="tag-header">
+                <span>HOT TAGS</span>
+                <a href='#'>ALL</a>
+            </div>
+            <ul class="rank-list">
+                <li class='hero'>
+                    <div class="rank">1.</div>
+                    <div class="user-info">
+                        <a href="#">
+                            <span class="username">
+                                撒网要监狱
+                            </span>
+                    
+                        </a>
+                    </div>
+                    <div class="rank-score">3666</div>
+                </li>
+            
+                <li class='hero'>
+                    <div class="rank">2.</div>
+                    <div class="user-info">
+                            <span class="username">
+                                撒网要监狱
+                            </span>
+                    </div>
+                    <div class="rank-score">3666</div>
+                </li>
+        
+            </ul>
+        </div>
+            
+        
+    
+    </div>
+
+</div>
+
+
+
+
+
+
+<!--<div class="user-info">-->
+    <!--<h3>all users</h3>-->
+    <!--<ul>-->
+    <!--{% for u in users %}-->
+        <!--<li style="margin: 30px">-->
+            <!--<div>id: {{ u._id }}</div>-->
+            <!--<div>username: {{ u.username }}</div>-->
+            <!--<div>password: {{u.password}}</div>-->
+            <!--<div>note: {{u.note}}</div>-->
+        <!--</li>-->
+    <!--{% endfor %}-->
+    <!--</ul>-->
+<!--</div>-->
+
+
+<div class="Popover-content Popover-content--bottom Popover-content--fixed Popover-content--arrowed" style="left: 880px;top: 36px; z-index: 9999; display: none ">
+    <span class="Popover-arrow Popover-arrow--bottom" style="left: 181px; top: 0; ">
+    </span>
+    
+    <!--menu-->
+    <div class="Menu PushNotifications-menu">
+        <div class="PushNotifications-content">
+            <div class="PushNotifications-header" role="tablist">
+                <!--message-icon-->
+                <button class="Button PushNotifications-tab Button--plain" role="tab"  aria-controls="PushNotifications-default" aria-label="消息" type="button">
+                    <svg viewBox="0 0 20 15" class="Icon PushNotifications-tabIcon PushNotifications-selectedTabIcon Icon--lastNews" width="20" height="16" aria-hidden="true" style="height: 16px; width: 20px;">
+                        <g><path d="M6.493 6C5.668 6 5 6.666 5 7.5 5 8.328 5.664 9 6.493 9h12.014C19.332 9 20 8.334 20 7.5c0-.828-.664-1.5-1.493-1.5H6.493zm0 6C5.668 12 5 12.666 5 13.5c0 .828.664 1.5 1.493 1.5h12.014c.825 0 1.493-.666 1.493-1.5 0-.828-.664-1.5-1.493-1.5H6.493zM1.5 0C.672 0 0 .666 0 1.5 0 2.328.666 3 1.5 3 2.328 3 3 2.334 3 1.5 3 .672 2.334 0 1.5 0zm0 6C.672 6 0 6.666 0 7.5 0 8.328.666 9 1.5 9 2.328 9 3 8.334 3 7.5 3 6.672 2.334 6 1.5 6zm0 6c-.828 0-1.5.666-1.5 1.5 0 .828.666 1.5 1.5 1.5.828 0 1.5-.666 1.5-1.5 0-.828-.666-1.5-1.5-1.5zM6.493 0C5.668 0 5 .666 5 1.5 5 2.328 5.664 3 6.493 3h12.014C19.332 3 20 2.334 20 1.5c0-.828-.664-1.5-1.493-1.5H6.493z"></path></g> </svg>
+                </button>
+                <!--user-->
+                <button class="Button PushNotifications-tab Button--plain" role="tab"
+                        aria-controls="PushNotifications-follow" aria-label="用户" type="button">
+                    <svg viewBox="0 0 24 17" class="Icon PushNotifications-tabIcon Icon--userNews" width="20"
+                         height="16" aria-hidden="true" style="height: 16px; width: 20px;"><title></title>
+                        <g>
+                            <path d="M9.464 7.705c-.265.46-.59.904-.538 1.315.206 1.603 3.205 1.92 4.087 2.99.643.783.91 1.97.972 3.96.01.32 0 1.03-.946 1.03H1.02c-1 0-1.01-.683-1-.995.068-1.994.318-3.208.976-3.994.886-1.056 4.084-1.345 4.224-3.05.032-.385-.268-.786-.538-1.255C3.182 5.102 2.608 0 7.054 0s3.824 5.25 2.41 7.705zM18.27 8.545c.963.126 2.924-.574 2.924-.574-.664-.68-.815-1.472-1.294-4.586C19.507.27 16.8.3 16.597.3c-.203 0-2.91-.03-3.297 3.084-.485 3.113-.636 3.907-1.3 4.586 0 0 1.96.7 2.923.575l-.003.68c-.494.542-1.79.725-2.376 1.077 2.796.316 2.954 3.696 2.954 6.678 1.475-.002 6.497.02 7.5.02 1.002 0 .996-.674.986-.976-.06-1.8-.28-2.786-.418-3.434-.416-1.976-3.58-1.488-5.292-3.364l-.003-.68z"></path>
+                        </g>
+                    </svg>
+                </button>
+                
+                <!--like-->
+                <button class="Button PushNotifications-tab Button--plain" role="tab"
+                        aria-controls="PushNotifications-vote-thank" aria-label="赞同和感谢" type="button">
+                    <div>
+                        <svg viewBox="0 0 20 18" class="Icon PushNotifications-tabIcon Icon--thankNews" width="20"
+                             height="16" aria-hidden="true" style="height: 16px; width: 20px;"><title></title>
+                            <g>
+                                <path d="M0,5.43706401 C5.73656627e-08,2.50510671 2.2938809,0.094365083 5.20737357,1.60732864e-07 C7.2427157,-0.000505078569 9.0922816,1.19013727 9.9999282,3 C10.8228521,1.24236064 12.6486957,1.60732867e-07 14.6514359,1.60732864e-07 C17.5445125,1.60732867e-07 19.9999282,2.50715387 19.9999282,5.43242499 C19.9999282,13.2399998 11.8420757,18 9.99997552,18 C8.15785253,18 -1.52669543e-07,13.2399998 0,5.43706401 Z"></path>
+                            </g>
+                        </svg>
+                    </div>
+                </button>
+            </div>
+            
+            
+            
+            <!--notification-list-->
+            <div class="PushNotifications-list">
+                <div class="PushNotifications-item">
+                    <span class="UserLink">
+                        <a class="UserLink-link" href="">少数派</a>
+                    </span><span>在 <a href="#">少数派</a>
+                    中发布了</span><span><a href="/p/34938188?group_id=961538649502969856">被侵权后如何投诉最有效？这份维权指南帮你找到合适的维权渠道</a></span>
+                </div>
+              </div>
+            
+            
+            <div class="Notifications-footer">
+                <a class="Button Button--plain" href="/settings/notification" type="button">
+                    <svg viewBox="0 0 20 20" class="Icon Button-icon Icon--setting" width="14" height="16"
+                         aria-hidden="true" style="height: 16px; width: 14px;"><title></title>
+                        <g>
+                            <path d="M18.868 15.185c-.164.096-.315.137-.452.137-.123 0-1.397-.26-1.617-.233-1.355.013-1.782 1.275-1.836 1.74-.055.454 0 .893.19 1.304.138.29.125.577-.067.85-.863.893-2.165 1.016-2.357 1.016-.123 0-.247-.055-.356-.15-.11-.097-.685-1.14-1.07-1.47-1.303-.954-2.246-.328-2.63 0-.397.33-.67.7-.835 1.126-.07.18-.18.302-.33.37-1.354.426-2.918-.92-3.014-1.056-.082-.11-.123-.22-.123-.356-.014-.138.383-1.276.342-1.688-.342-1.9-1.836-1.687-2.096-1.673-.303.014-.604.068-.92.178-.205.056-.396.03-.588-.054-.888-.462-1.137-2.332-1.11-2.51.055-.315.192-.52.438-.604.425-.164.81-.452 1.15-.85.932-1.262.344-2.25 0-2.634-.34-.356-.725-.645-1.15-.81-.137-.04-.233-.15-.328-.315C-.27 6.07.724 4.95.978 4.733c.255-.22.6-.055.723 0 .426.164.878.22 1.344.15C4.7 4.636 4.784 3.14 4.81 2.908c.015-.247-.11-1.29-.136-1.4-.027-.123-.014-.22.027-.315C5.318.178 7.073 0 7.223 0c.178 0 .33.055.44.178.108.124.63 1.11 1 1.4.398.338 1.582.83 2.588.013.398-.273.96-1.288 1.083-1.412.123-.123.26-.178.384-.178 1.56 0 2.33 1.03 2.438 1.22.083.124.096.248.07.37-.03.152-.33 1.153-.262 1.606.366 1.537 1.384 1.742 1.89 1.783.494.027 1.645-.357 1.81-.344.164.014.315.083.424.206.535.31.85 1.715.905 2.14.027.233-.014.44-.11.562-.11.138-1.165.714-1.48 1.112-.855.982-.342 2.25-.068 2.606.26.37 1.22.905 1.288.96.15.137.26.302.315.494.146 1.413-.89 2.387-1.07 2.47zm-8.905-.535c.644 0 1.246-.123 1.822-.356.575-.248 1.082-.59 1.493-1.016.425-.425.754-.92 1-1.495.247-.562.357-1.18.357-1.81 0-.66-.11-1.262-.356-1.825-.248-.562-.577-1.056-1.002-1.48-.41-.427-.918-.756-1.493-1.003-.576-.233-1.178-.357-1.822-.357-.644 0-1.247.124-1.81.357-.56.247-1.067.576-1.478 1.002-.425.425-.768.92-1 1.48-.247.564-.37 1.167-.37 1.826 0 .644.123 1.248.37 1.81.232.563.575 1.07 1 1.495.424.426.917.768 1.48 1.016.56.233 1.164.356 1.808.356z"></path>
+                        </g>
+                    </svg>
+                    设置</a>
+                <a class="Button Button--plain" href="/notifications" type="button">查看全部提醒</a>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+<script>
+    notification = document.querySelector('.notification')
+    notification.addEventListener( 'click', () => {
+        const count = document.querySelector('.notification-count')
+        console.log('count', count)
+        count.style.visibility ='hidden'
+    })
+    
+</script>
+
+<script>
+    const contentContainer = e('.story-body')
+    contentContainer.addEventListener('click', (event) => {
+        const t = event.target
+        if (t.classList.contains(('content-item'))) {
+            console.log('ok')
+            const text = e('.content-text', t )
+            text.html = {{ topics }}
+        }
+    })
+    
+    
+    
+</script>
+
+</body>
+</html>

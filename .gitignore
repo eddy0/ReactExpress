@@ -1,0 +1,6 @@
+
+*.xml
+/node_modules/
+*.lock
+
+*.iml

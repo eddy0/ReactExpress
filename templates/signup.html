@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script defer src="/static/js/fontawesome-all.min.js"></script>
+    <link rel="stylesheet" href="/static/css/signup.css">
+    
+    <title>Signup</title>
+</head>
+<body>
+<div>
+    <form action="/register" method="post" id="signup-form">
+        <div class="heading">Sign Up</div>
+        <div class="left">
+            <input type="text" name="username" id="username" placeholder='Username'/>
+            <input type="password" name="password" class="password" placeholder='Password' />
+            <input type="password" name="confirmation" class="confirm" placeholder='Confirm Password' />
+            <input class='submit' type="submit" value="Sign up" />
+            <br>
+            <div class='login'>
+                <span> Already Signed Up <a href="/login"> Login </a></span>
+            </div>
+        </div>
+      
+        <div class="right">
+            <div class="connect">login with</div>
+            <a href="" class="facebook">
+                <i class="fab fa-facebook" aria-hidden="true" ></i>
+                LOGIN WITH FACEBOOK
+            </a>
+            <br />
+            <a href="" class="twitter">
+                <i class="fab fa-twitter" aria-hidden="true" ></i>
+                LOGIN WITH TWITTER
+            </a> <br />
+            <a href="" class="google-plus">
+                <i class="fab fa-google" aria-hidden="true" ></i>
+                LOGIN WITH GOOGLE
+            </a>
+        </div>
+    </form>
+    
+    {% if flash| length > 0 %}
+    {{ flash.message }}
+    {% endif %}
+
+</div>
+<script>
+    
+    let btn = document.querySelector('.submit')
+    btn.addEventListener('click', (event) => {
+        let confirm = document.querySelector('.confirm')
+        let password = document.querySelector('.password')
+        if( confirm.value === password.value) {
+            btn.classList.remove('blur')
+            console.log('ok')
+        } else{
+            event.preventDefault()
+            console.log('wrong')
+            btn.classList.add('blur')
+        }
+        
+    })
+  
+    
+</script>
+</body>
+</html>

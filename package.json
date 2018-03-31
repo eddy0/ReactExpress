@@ -1,0 +1,19 @@
+{
+  "name": "ReactExpress",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cookie-session": "^2.0.0-beta.3",
+    "crypto": "^1.0.1",
+    "express": "^4.16.3",
+    "isomorphic-fetch": "^2.2.1",
+    "mongoose": "^5.0.11",
+    "nodemon": "^1.17.2",
+    "nunjucks": "^3.1.2"
+  },
+  "scripts": {
+    "dev": "nodemon app.js"
+  }
+}
