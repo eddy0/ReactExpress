@@ -6,24 +6,10 @@ const router = express.Router()
 
 router.get('/', loginRequired, async (request, response) => {
     const u = await currentUser(request)
-    const ts = await Topic.all()
-    const list = ts.map( async t => {
-        const user = await User.get(t.uid)
-        let ls = {
-            note: user.note,
-            role: user.role,
-            username: user.username,
-        }
-        Object.keys(ls).map( l => t[l] = ls[l] )
-        return t
-    })
-
-
-    let topics = await Promise.all(list)
-    // console.log('topics', topics)
+    const ts = await Topic.allList()
     const args = {
         u: u,
-        topics: topics,
+        topics: ts,
     }
     response.render('index.html', args)
 })

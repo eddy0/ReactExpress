@@ -3,7 +3,6 @@ const User = require('../models/user')
 
 const currentUser = async (request) => {
     const uid = request.session.uid
-    console.log('uid', uid)
     if (uid === undefined) {
         return User.guest()
     } else {

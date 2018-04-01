@@ -220,7 +220,6 @@
         </div>
         <div class="story-body">
         {% for t in topics %}
-            {{ t }}
         <div class='card-container'>
                 <span class="card-clear">
                       <svg class="icon icon-clear" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -269,7 +268,7 @@
 
                             <i class='fas fa-eye icon-font icon-view'></i>
                         <span class="view-count">
-233
+{{ t.views }}
                             </span>
                             views
 
@@ -523,6 +522,15 @@ comments
         </div>
     </div>
     <div class="side">
+    
+        <div class='tag'>
+            <div class="tag-header">
+                <span>HOT TAGS</span>
+                <a href='#'>ALL</a>
+            </div>
+            <a href="/topic/new"><button class="btn button-plain"> create </button></a>
+           
+        </div>
         <div class='tag'>
             <div class="tag-header">
                 <span>HOT TAGS</span>
@@ -578,7 +586,6 @@ comments
         </div>
             
         
-    
     </div>
 
 </div>
@@ -682,17 +689,7 @@ comments
 </script>
 
 <script>
-    const contentContainer = e('.story-body')
-    contentContainer.addEventListener('click', (event) => {
-        const t = event.target
-        if (t.classList.contains(('content-item'))) {
-            console.log('ok')
-            const text = e('.content-text', t )
-            text.html = {{ topics }}
-        }
-    })
-    
-    
+
     
 </script>
 

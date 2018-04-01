@@ -13,6 +13,10 @@ const userSchema = new Schema({
         type: Number,
         default: 2,
     },
+    score: {
+        type: Number,
+        default: 0,
+    },
     createdTime: {
         type: Number,
         default: Date.now()

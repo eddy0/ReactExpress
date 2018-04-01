@@ -8,18 +8,19 @@ const { currentUser, loginRequired } = require('./main')
 
 
 router.get('/', loginRequired, async (request, response) => {
-    const u = await currentUser(request)
-    console.log('u', u)
-    const args = {
-        u: u
-    }
-    response.render('index.html', args)
+    response.redirect('../')
 })
 
 
-router.get('/login', (request, response) => {
-    response.render('login.html')
+router.get('/new', loginRequired, (request, response) => {
+    response.render('topic/new.html')
 })
+router.post('/add', loginRequired, async (request, response) => {
+    const body = request.body
+    console.log('body', body)
+})
+
+
 
 router.post('/login', async (request, response) => {
     const next= request.query.next || '/'

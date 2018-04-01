@@ -32,7 +32,8 @@ const TopicSchema = new Schema({
     __deleted: {
         type: Boolean,
         default: false,
-    }
+    },
+
 })
 
 
@@ -47,9 +48,38 @@ class TopicStore extends Model{
         return t
     }
 
+    static async allList() {
+        const User = require('./user')
+        const ts = await this.all()
+        // link topic with user
+        const topics = await Promise.all( ts.map( async t => {
+            let users = await User.get(t.uid)
+            users = users.toObject()
+            return Object.assign(users, t.toObject())
+        }))
+        return topics
+    }
+
+
     static async update(form) {
         return  u = await super.create(form)
     }
+
+    async user() {
+        const User = require('./user')
+        const u = await User.get(this.uid)
+        return u
+    }
+
+
+
+
+
+    // async tag() {
+    //     const Tag = require('./tag')
+    //     const u = await User.get(this.uid)
+    //     return u
+    // }
 
 }
 
