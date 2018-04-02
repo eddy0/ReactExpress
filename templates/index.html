@@ -26,6 +26,7 @@
     <title>homepage</title>
 </head>
 <body>
+
 <!--header-->
 <header class="navbar navbar-expand-lg">
     <div class="container">
@@ -166,19 +167,21 @@
 
                     const __popoverEvent =  () => {
                         const container = e('.header-userInfo')
-                        
+                        const popOver = e('.Popover-content', container)
+
                         const Option = e('.header-userOption', container)
-                        Option.addEventListener('click', () =>{
-                            const popOver = e('.Popover-content', container)
+                        Option.addEventListener('click', (event) =>{
                             popOver.classList.toggle('show-option')
                         })
 
+
                         Option.addEventListener('blur', () =>{
-                            const popOver = e('.Popover-content', container)
-                            popOver.classList.remove('show-option')
+                            console.log('blur', blur)
+                            setTimeout(()=> {
+                                popOver.classList.remove('show-option')
+                            },100 )
                         })
-                        
-                        
+
                         
                         const MenuItem = e('.Menu', container)
                         MenuItem.addEventListener('mouseover', (event) => {
@@ -208,6 +211,7 @@
 
 </header>
 
+<!--main-->
 <div class="main">
     <div class="container">
         <div class="storyCard">
@@ -227,7 +231,7 @@
                 </span>
         
             <div class="timestamp">
-                published by {{ t.createdTime }}
+                published by {{ t.createdTime | formattedTime() }}
             </div>
         
             <div class="author">
@@ -246,21 +250,24 @@
             </div>
         
             <div class="content-cell">
-                <a href="#" class="content-title">
+                <a href="/topic/{{t._id}}" class="content-title" style="display: inline-block">
                     <span>{{ t.title }}</span>
                 </a>
                 <div class="content-item">
+                    <a href="/topic/{{t._id}}">
                         <span class="content-text">
                            {{ t.brief }}
                         </span>
+                  
                     <span class='content-expand'>
                             more
                             <svg class="icon icon-down" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"/></svg>
                         </span>
+                    </a>
             
                 </div>
                 <div class="content-action">
-                        <span class="topic-tag front-end">
+                        <span class="topic-tag {{ t.tag }}">
                             {{ t.tag }}
                         </span>
                 

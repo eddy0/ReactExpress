@@ -2,16 +2,30 @@ const express = require('express')
 const path = require('path')
 const bodyParser = require('body-parser')
 const session = require('cookie-session')
-
 const nunjucks = require('nunjucks')
+
+
+
 const app = express()
 
 const configTemplate = () => {
-    nunjucks.configure('templates',{
+    const env = nunjucks.configure('templates',{
         express: app,
         noCache: true,
         autoescape: true,
         watch: true,
+    })
+
+    env.addFilter('formattedTime', (date) => {
+        const { formattedTime } = require('./filter/filter.js')
+        const s = formattedTime(date)
+        return s
+    })
+
+    env.addFilter('replace', (str) => {
+        const { replace } = require('./filter/filter.js')
+        const s = replace(str)
+        return s
     })
 }
 

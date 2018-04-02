@@ -15,7 +15,6 @@ const TopicSchema = new Schema({
     },
     tag: {
         type: String,
-        default: 'article',
     },
     views: {
         type: Number,
@@ -54,14 +53,31 @@ class TopicStore extends Model{
         // link topic with user
         const topics = await Promise.all( ts.map( async t => {
             let users = await User.get(t.uid)
-            users = users.toObject()
-            return Object.assign(users, t.toObject())
+            console.log('users', users)
+            if (users !== null) {
+                users = users.toObject()
+                return Object.assign(users, t.toObject())
+            }
         }))
         return topics
     }
 
 
+
+    static async detail(id) {
+        const t = await this.get(id)
+        t.views += 1
+        t.save()
+        t.content = t.content.replace(/\r\n/g, '<br>')
+        return t
+    }
+
+
     static async update(form) {
+        const frozenKeys = [
+            id,
+            createdTime,
+        ]
         return  u = await super.create(form)
     }
 

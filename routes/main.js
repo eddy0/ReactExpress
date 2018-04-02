@@ -16,8 +16,8 @@ const currentUser = async (request) => {
 }
 
 
-const loginRequired = (request, response, next) => {
-    const u = currentUser(request)
+const loginRequired = async (request, response, next) => {
+    const u = await currentUser(request)
     if (u.role !== -1) {
         next()
     } else{

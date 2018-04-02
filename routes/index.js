@@ -1,17 +1,20 @@
 const express = require('express')
 const User = require('../models/user')
 const Topic = require('../models/topic')
+const {rank} = require('../utils')
 const { currentUser, loginRequired } = require('./main')
 const router = express.Router()
 
 router.get('/', loginRequired, async (request, response) => {
     const u = await currentUser(request)
-    const ts = await Topic.allList()
+    let ts = await Topic.allList()
+    ts = ts.sort(rank('createdTime'))
+    console.log('u', u)
     const args = {
         u: u,
         topics: ts,
     }
-    response.render('index.html', args)
+    response.render('redo/index.html', args)
 })
 
 
