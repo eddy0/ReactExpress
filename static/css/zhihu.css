@@ -6,8 +6,6 @@ button {
   background: none;
   border: none;
   outline: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
   appearance: none
 }
 
@@ -92,10 +90,6 @@ a {
   opacity: .5
 }
 
-html[data-theme=dark] .Button {
-  color: #606a80
-}
-
 .Button--grey {
   color: #8590a6;
   border-color: #8590a6
@@ -103,15 +97,6 @@ html[data-theme=dark] .Button {
 
 .Button--grey:hover:not(:disabled) {
   background-color: rgba(133, 144, 166, .06)
-}
-
-html[data-theme=dark] .Button--grey:hover:not(:disabled) {
-  background-color: rgba(96, 106, 128, .06)
-}
-
-html[data-theme=dark] .Button--grey {
-  color: #606a80;
-  border-color: #606a80
 }
 
 .Button--blue {
@@ -123,14 +108,7 @@ html[data-theme=dark] .Button--grey {
   background-color: rgba(0, 132, 255, .06)
 }
 
-html[data-theme=dark] .Button--blue:hover:not(:disabled) {
-  background-color: rgba(58, 118, 208, .06)
-}
 
-html[data-theme=dark] .Button--blue {
-  color: #3a76d0;
-  border-color: #3a76d0
-}
 
 .Button--green {
   color: #11a668;
@@ -150,14 +128,6 @@ html[data-theme=dark] .Button--blue {
   background-color: rgba(255, 51, 102, .06)
 }
 
-html[data-theme=dark] .Button--red:hover:not(:disabled) {
-  background-color: rgba(217, 33, 85, .06)
-}
-
-html[data-theme=dark] .Button--red {
-  color: #d92155;
-  border-color: #d92155
-}
 
 .Button--primary.Button--blue {
   color: #fff;
@@ -169,15 +139,6 @@ html[data-theme=dark] .Button--red {
   background-color: #0077e6
 }
 
-html[data-theme=dark] .Button--primary.Button--blue:hover:not(:disabled) {
-  border-color: #2f69c1;
-  background-color: #2f69c1
-}
-
-html[data-theme=dark] .Button--primary.Button--blue {
-  color: #ebebeb;
-  background-color: #3a76d0
-}
 
 .Button--primary.Button--green {
   color: #fff;
@@ -189,9 +150,6 @@ html[data-theme=dark] .Button--primary.Button--blue {
   background-color: #109e63 !important
 }
 
-html[data-theme=dark] .Button--primary.Button--green {
-  color: #ebebeb
-}
 
 .Button--primary.Button--red {
   color: #fff;
@@ -262,7 +220,7 @@ html[data-theme=dark] .Button--link, html[data-theme=dark] .Button--plain {
   border: none
 }
 
-.Button--plain:hover, html[data-theme=dark] .Button--link:hover, html[data-theme=dark] .Button--plain:hover {
+.Button--plain:hover {
   background-color: transparent;
   /* background-color: initial */
 }
@@ -271,9 +229,6 @@ html[data-theme=dark] .Button--link, html[data-theme=dark] .Button--plain {
   color: #77839c;
 }
 
-html[data-theme=dark] .Button--plain:hover {
-  color: #565e71
-}
 
 .Button--link {
   color: #175199
@@ -285,13 +240,6 @@ html[data-theme=dark] .Button--plain:hover {
   color: #144785
 }
 
-html[data-theme=dark] .Button--link:hover {
-  color: #144785
-}
-
-html[data-theme=dark] .Button--link {
-  color: #175199
-}
 
 .Button--withIcon.Button--iconOnly {
   padding: 0 4px
@@ -343,10 +291,6 @@ html[data-theme=dark] .Button--link {
   }
 }
 
-html[data-theme=dark] .Notification {
-  color: #999;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, .1)
-}
 
 .Notification-textSection {
   width: 100%;

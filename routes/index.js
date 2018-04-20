@@ -14,7 +14,7 @@ router.get('/', loginRequired, async (request, response) => {
         u: u,
         topics: ts,
     }
-    response.render('redo/index.html', args)
+    response.render('index.html', args)
 })
 
 
