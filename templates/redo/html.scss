@@ -193,12 +193,18 @@ header .header-avatar {
 }
 
 .header-avatar .header-popover {
+  display: none;
   position: absolute;
   left: 0;
   top: 48px;
   transform:translateX(calc(-50% + 15px));
   border-radius: 3px;
   font-size: 14px;
+}
+
+.header-popover.show-user{
+  display: block;
+
 }
 
 header .header-login{

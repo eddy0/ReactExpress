@@ -17,7 +17,7 @@
             font: inherit;
             color: inherit;
             font-size: 18px;
-            background-color: #E8F3EC;
+            background-color: #D7EFEE;
         }
 
         ul, li{
@@ -30,6 +30,11 @@
         }
         .wd-login-box{
             box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+        }
+
+        .wd-login-box{
+            background-color: #D7EFEE;
+
         }
 
         .wd-login-title{
@@ -46,25 +51,24 @@
 <div class="wd-login-container alert-show">
     <div class="wd-login-overlay"></div>
     <div class="wd-login-box">
-<div class="wd-login-container">
-    <div class="wd-login-title">
-        Welcome Back
-    </div>
-    <div class="wd-login-inputWrapper">
-        <form action="/signin" method="post" >
-        <input class="wd-login-input login-username" type="text" placeholder="username">
-        <input class="wd-login-input login-password" type="password" placeholder="password">
-        </form>
-    </div>
-    <div class="wd-login-btns">
-        <button class="wd-login-btn wd-login-submit">Sign In</button>
-
-    </div>
-    <div class="wd-login-signup">
-        <span>No account? </span>
-        <a href="/signup">Create one.</a>
-    </div>
-</div>
+        <div class="wd-login-container">
+            <div class="wd-login-title">
+                Welcome to Join us
+            </div>
+            <div class="wd-login-inputWrapper">
+                <form action="/signup" method="post" >
+                    <input class="wd-login-input login-username" type="text" placeholder="username">
+                    <input class="wd-login-input login-password" type="password" placeholder="password">
+                </form>
+            </div>
+            <div class="wd-login-btns">
+                <button class="wd-login-btn wd-alert-confirm">Sign Up</button>
+            </div>
+            <div class="wd-login-signup">
+                <span>Already has account? </span>
+                <a href="/signin">Sign in.</a>
+            </div>
+        </div>
 
     </div>
 </div>

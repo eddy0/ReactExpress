@@ -119,10 +119,10 @@
   border: 0; }
 
 .wd-login-btn.wd-login-submit, .wd-login-btn.wd-login-notice {
-  background-color: #3085d6; }
+  background-color: rgba(48, 133, 214, 0.8); }
 
-.wd-login-btn.wd-login-submit, .wd-login-btn.wd-login-notice:hover {
-  background-color: #2b78c1; }
+.wd-login-btn.wd-login-submit:hover, .wd-login-btn.wd-login-notice:hover {
+  background-color: rgba(43, 120, 193, 0.9); }
 
 .wd-login-btn.wd-alert-confirm {
   background-color: #5cb85c; }
@@ -142,12 +142,12 @@
 .wd-login-btn.wd-login-reject:hover {
   background-color: #c9302c; }
 
-.wd-login-signup {
-  margin-top: 20px; }
-  .wd-login-signup a {
+.wd-login-signup, .wd-login-signup {
+  margin-top: 30px; }
+  .wd-login-signup a, .wd-login-signup a {
     color: #00a699;
     text-decoration: underline; }
-    .wd-login-signup a:hover {
+    .wd-login-signup a:hover, .wd-login-signup a:hover {
       color: #2b78c1; }
 
 /*# sourceMappingURL=login.css.map */

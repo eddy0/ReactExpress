@@ -44,8 +44,9 @@ class Alert {
     }
 
     initframe(){
-        if (this.container !== null){
-            this.container.remove()
+        const container = this.e('.wd-login-container')
+        if (container !== null){
+            container.remove()
         }
         let t = `
             <div class="wd-login-container alert-show">
@@ -75,7 +76,7 @@ class AlertNotice extends Alert {
         const t = `
                 <div class="wd-login-box">
                     <div class="wd-login-title">
-                        ${this.title.toUpperCase()}
+                        ${this.title}
                     </div>
                     <div class="wd-login-content">
                          ${this.notice}
@@ -105,7 +106,6 @@ class AlertConfirm extends Alert {
         super()
         this.title = args.title || ''
         this.notice = args.notice || ''
-        this.callback = args.callback || new Function()
         this.appendHtml()
         this.actionAlert()
     }
@@ -137,9 +137,9 @@ class AlertConfirm extends Alert {
         this.bindAll('.wd-login-btn', 'click', (event) => {
             this.container.classList.toggle('alert-show')
             if (this.has(event, 'wd-alert-confirm')){
-                this.callback(true)
+                this.fire(true)
             } else if (this.has(event,'wd-login-reject')) {
-                this.callback(false)
+                this.fire(false)
             }
         })
     }
@@ -150,7 +150,6 @@ class AlertLogin extends Alert {
         super()
         this.title = args.title || ''
         this.placeholder = args.placeholder || []
-        this.callback = args.callback || new Function()
         this.appendHtml()
         this.actionAlert()
     }
@@ -183,11 +182,15 @@ class AlertLogin extends Alert {
 
     actionAlert() {
         this.bindAll('.wd-login-btn', 'click', (event) => {
-            console.log('clicked', event, this,  this.has(event)('wd-login-submit') )
+            console.log('clicked', this.container )
             this.container.classList.toggle('alert-show')
             if(this.has(event)('wd-login-submit')) {
-                const input = this.e('.wd-login-input')
-                const val = input.value
+                const username = this.e('.login-username')
+                const password = this.e('.login-password')
+                const val = {
+                    username: username.value,
+                    password: password.value
+                }
                 this.fire(true, val)
             } else if(this.has(event)('wd-login-cancel')) {
                 this.fire(false)
@@ -196,40 +199,98 @@ class AlertLogin extends Alert {
     }
 }
 
+const sucessNotice = () => {
+    let sucess = new AlertNotice({
+        title: 'Success',
+        notice: 'you have logged in'
+    })
+}
 
+const faledNotice = () => {
+    let failed = new AlertNotice({
+        title: 'Failed',
+        notice: 'you have typped wrong username / password'
+    })
+}
 
+let userTemplate = (data) => {
+    let t  = `
+    <div class="header-avatar">
+                <img src="${data.avatar}" alt="">
+                <div class="header-popover">
+                        <ul class="wd-popover-list">
+                            <li class="item">
+                                <a href="/profile/${data.id}">
+                                    <svg viewBox="0 0 20 20" width="14" height="16" aria-hidden="true" style="height: 16px; width: 14px;">
+                                        <g>
+                                            <path d="M13.4170937,10.9231839 C13.0412306,11.5757324 12.5795351,12.204074 12.6542924,12.7864225 C12.9457074,15.059449 18.2164534,14.5560766 19.4340179,15.8344151 C20,16.4286478 20,16.4978969 20,19.9978966 C13.3887136,19.9271077 6.63736785,19.9978966 0,19.9978966 C0.0272309069,16.4978969 0,16.5202878 0.620443914,15.8344151 C1.92305664,14.3944356 7.20116276,15.1185829 7.40016946,12.7013525 C7.44516228,12.1563518 7.02015319,11.5871442 6.63736814,10.9228381 C4.51128441,7.2323256 3.69679769,4.67956187e-11 10,9.32587341e-14 C16.3032023,-4.66091013e-11 15.4216968,7.4429255 13.4170937,10.9231839 Z"></path>
+                                        </g>
+                                    </svg>
+                                    <span>Profile</span>
+                                </a>
+                            </li>
+                            <li class="item">
+                                <a href="/logout">
+                                    <svg viewBox="0 0 20 20" class="Icon Button-icon Icon--logout" width="14" height="16" aria-hidden="true" style="height: 16px; width: 14px;"><title></title>
+                                        <g>
+                                            <path d="M0 10C0 7.242 1.154 4.58 3.167 2.697c.51-.477 1.31-.45 1.79.06.475.51.45 1.31-.06 1.787C3.37 5.975 2.53 7.91 2.53 10c0 4.118 3.35 7.468 7.47 7.468 4.12 0 7.47-3.35 7.47-7.47 0-2.04-.81-3.948-2.28-5.37-.5-.485-.514-1.286-.028-1.788.485-.5 1.286-.517 1.79-.03C18.915 4.712 20 7.265 20 10c0 5.512-4.486 9.998-10 9.998s-10-4.486-10-10zm8.7-.483V1.26C8.7.564 9.26 0 9.96 0c.695 0 1.26.564 1.26 1.26v8.257c0 .696-.565 1.26-1.26 1.26-.698 0-1.26-.564-1.26-1.26z"></path>
+                                        </g>
+                                    </svg>
+                                    <span>Logout</span>
+                                </a>
+                            </li>
 
-// alertNotice()
-// alertConfirm()
-// alertLogin()
+                        </ul>
+                    </div>
 
-let test = () => {
-    let confirmFunction = (confirm, value) => {
+                </div>
+    `
+    return t
+}
+
+const renderLoginHtml = (data) => {
+    let container = document.querySelector('.header-info')
+    container.innerHTML = ''
+    let t = userTemplate(data)
+    appendHtml(container, t )
+}
+
+let logoutTemplate = () => {
+    const t =
+        `
+        <div class="header-login">
+                <a href="#" class="signIn">Sign in</a>
+                <a href="#" class="signUp">Get Started</a>
+            </div>
+        `
+     return t
+}
+
+const renderLogoutHtml = () => {
+    let container = document.querySelector('.header-info')
+    container.innerHTML = ''
+    let t = logoutTemplate(data)
+    appendHtml(container, t )
+
+}
+
+const signInTrigger = () => {
+    let loginFunction = (confirm, value) => {
         if (confirm){
-            new AlertConfirm({
-                title: 'confirm?',
-                notice: `you have typed ${value}`,
-                callback: (confirmed) => {
-                    if (confirmed){
-                        let a = new AlertNotice({
-                            title: 'notice',
-                            notice: `you have submitted `
-                        })
-                    } else{
-                        console.log('cancelled')
-                        let a = new AlertNotice({
-                            title: 'cancelled',
-                            notice: 'you have cancelled'
-                        })
-                    }},
-            })
-        } else{
-            new AlertNotice({
-                title: 'cancelled',
-                notice: 'you have cancelled'
+            let l = new TodoApi()
+            // let data = signin.post('/login',value)
+            l.post('/login',value).then( (data) => {
+                if (data.success === true){
+                    sucessNotice()
+                    renderLoginHtml(data.data)
+                } else{
+                    faledNotice()
+                }
             })
         }
     }
+
+
 
     new AlertLogin({
         title: 'Welcome Back',
@@ -237,9 +298,71 @@ let test = () => {
                         'username',
                         'password',
                     ]
-    }).on(confirmFunction)
+    }).on(loginFunction)
+}
+
+const signOutrTrigger = () => {
+    let l = new TodoApi()
+    // let data = signin.post('/login',value)
+    l.get('/logout').then( (data) => {
+        if(data.success === true) {
+            renderLogoutHtml()
+        } else {
+            faledNotice()
+        }
+    })
+}
+
+const ToggleUserInfo = () => {
+    let wrapper = e('.header-info')
+    log('wrapper', wrapper)
+    const popover = e('.header-popover', wrapper)
+    popover.classList.add('show-user')
+    setTimeout( () => {
+        popover.focus()
+    }, 50)
+
+    setTimeout( () => {
+        log('blur')
+        popover.blur()
+    }, 1000)
+
+    popover.addEventListener('blur', (event) => {
+        log('blur', event)
+        popover.classList.remove('show-user')
+    })
+}
+
+const popoverBlur = () => {
+    let wrapper = e('.header-info')
+    const popover = e('.header-popover', wrapper)
+    log('wrapper', wrapper)
+    popover.addEventListener('blur', (event) => {
+        log('blur', event)
+        popover.classList.remove('show-user')
+    })
+}
+
+popoverBlur()
+
+const loginMain = () => {
+    const container = e('.header-info')
+    let actions = {
+        'avatar': ToggleUserInfo,
+        'signIn':signInTrigger,
+        'logOut':signOutrTrigger,
+    }
+
+    container.addEventListener('click', (event) => {
+        const self = event.target
+        log('click', self)
+
+        let action = self.dataset.action
+        if (action in actions){
+            actions[action]()
+        }
+    })
 
 }
 
-test()
-
+loginMain()
