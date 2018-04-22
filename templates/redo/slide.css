@@ -1,0 +1,127 @@
+.blog-slide > div {
+  margin-bottom: 20px;
+  background-color: #fff;
+  box-sizing: border-box;
+  padding: 10px;
+  border-radius: 3px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  color: #8590a6; }
+
+.blog-slide .blog-create {
+  background-color: #fff;
+  padding: 20px 10px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  border-radius: 10px;
+  font-size: 22px;
+  font-weight: 600;
+  color: #00a699; }
+  .blog-slide .blog-create:hover {
+    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.5);
+    color: #00736a; }
+
+.blog-slide .hot-tag {
+  max-width: 284px; }
+  .blog-slide .hot-tag .tag-header {
+    display: flex;
+    font-size: 18px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #e4e7e7; }
+    .blog-slide .hot-tag .tag-header .tag-title {
+      font-size: 18px;
+      flex: 1; }
+  .blog-slide .hot-tag .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 15px;
+    justify-content: space-between; }
+    .blog-slide .hot-tag .tag-list .tag-item {
+      padding: 6px;
+      border-radius: 4px;
+      margin-top: 10px;
+      margin-right: 6px;
+      color: #ebebeb;
+      cursor: pointer; }
+
+.blog-slide .star-ranking .rank-header {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #e4e7e7; }
+  .blog-slide .star-ranking .rank-header .rank-title {
+    font-size: 18px;
+    flex: 1; }
+  .blog-slide .star-ranking .rank-header .rank-wrapper {
+    font-size: 16px;
+    color: #646464; }
+
+.star-ranking .rank-list {
+  font-size: 16px;
+  line-height: 25px; }
+  .star-ranking .rank-list .rank-hero {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #f2f2f2; }
+    .star-ranking .rank-list .rank-hero .hero-number {
+      margin-right: 8px;
+      position: relative; }
+      .star-ranking .rank-list .rank-hero .hero-number:after {
+        content: ".";
+        position: relative;
+        right: 0; }
+    .star-ranking .rank-list .rank-hero .hero-info {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: baseline;
+      color: #646464; }
+      .star-ranking .rank-list .rank-hero .hero-info:hover {
+        color: #00736a; }
+      .star-ranking .rank-list .rank-hero .hero-info .hero-avatar {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        margin-right: 6px;
+        position: relative;
+        top: 5px; }
+      .star-ranking .rank-list .rank-hero .hero-info .hero-name {
+        font-size: 16px;
+        line-height: 25px; }
+    .star-ranking .rank-list .rank-hero .hero-score {
+      color: #00a699; }
+
+.blog-slide .rank-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer; }
+  .blog-slide .rank-wrapper .rank-source {
+    color: #f45600;
+    display: inline-block;
+    line-height: 24px; }
+  .blog-slide .rank-wrapper svg {
+    position: relative;
+    top: 50%;
+    right: 0;
+    fill: #f45600; }
+  .blog-slide .rank-wrapper:hover svg, .blog-slide .rank-wrapper:hover .rank-source {
+    color: #ff955b;
+    fill: #ff955b; }
+
+.wd-popover-list.rank-source-menu {
+  display: none;
+  position: absolute;
+  top: 30px;
+  left: -10px;
+  color: #ff955b; }
+  .wd-popover-list.rank-source-menu.rank-source-menu.active {
+    display: block; }
+  .wd-popover-list.rank-source-menu > li.active {
+    color: #f45600;
+    background-color: #f6f6f6; }
+
+/*# sourceMappingURL=slide.css.map */
