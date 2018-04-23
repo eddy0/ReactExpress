@@ -11,15 +11,6 @@
     <link rel="stylesheet" href="./card.css">
     <link rel="stylesheet" href="./popover.css">
     <script src="../../static/js/fontawesome-all.min.js"></script>
-
-
-
-
-    <link rel="stylesheet" href="/static/css/css/html.css">
-    <link rel="stylesheet" href="/static/css/css/slide.css">
-    <link rel="stylesheet" href="/static/css/css/card.css">
-    <link rel="stylesheet" href="/static/css/css/popover.css">
-    <script src="/static/js/fontawesome-all.min.js"></script>
 </head>
 <body>
 
@@ -44,17 +35,18 @@
         <div class="header-info">
 
             <!--before login-->
-            {% if u.role == -1 %}
-
+            <!--
                        <div class="header-login">
                            <a href="#" class="signIn" data-action="signIn">Sign in</a>
                            <a href="#" class="signUp">Get Started</a>
                        </div>
 
+            -->
+
 
                        <!--after login-->
 
-            {% else %}
+
             <div class="header-avatar">
                 <img src="https://vip.kybmig.cc/uploads/avatar/default.gif" alt="" data-action="avatar">
                 <div class="header-popover" tabindex="0" >
@@ -79,11 +71,14 @@
                                     <span>Logout</span>
                                 </a>
                             </li>
+
                         </ul>
                     </div>
+
                 </div>
+
+
             </div>
-        {% endif  %}
             
         </div>
 </header>
@@ -92,7 +87,6 @@
 <div class="main">
     <div class="main-container">
         <section class="blog-main">
-
             <div class="wd-card">
             <span class="card-remove">
                           <svg class="icon icon-clear" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -125,11 +119,11 @@
                             <span class="content-detail">
                                {{ t.brief }}
                             </span>
-                    <span class='content-expand'>
+                        <span class='content-expand'>
                                 <span>more</span>
                                 <svg class="icon icon-down" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"/></svg>
                             </span>
-                </a>
+                    </a>
             </div>
 
             <div class="card-action">
@@ -153,87 +147,13 @@
                     Like
                 </span>
 
-                <!--<span class="action-share">-->
-                <!--<i class='fas fa-share-alt icon-font icon-share' ></i>-->
-                <!--share-->
-                <!--</span>-->
-            </div>
-
-        </div>
-
-            {% for t in topics %}
-
-            {{ t }}
-
-            <div class="wd-card">
-            <span class="card-remove">
-                          <svg class="icon icon-clear" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-                    </span>
-
-                <div class="feed-date">
-                    published by {{ t.createdTime | formattedTime() }}
-                </div>
-
-                <div class="feed-author">
-                    <a href="#" class="author-avatar">
-                        <img src="https://vip.kybmig.cc/uploads/avatar/default.gif" alt=""/>
-                    </a>
-                    <div class="author-detail">
-                        <div class="author-name">
-                            <a href="#"> {{ t.username }}</a>
-                        </div>
-                        <span class="author-note">
-                        {{ t.note }}
-                    </span>
-                    </div>
-                </div>
-
-                <div class="content-box">
-                    <a href="/topic/{{t._id}}" class="content-title" style="display: inline-block">
-                        <span>{{ t.title }}</span>
-                    </a>
-                    <a href="/topic/{{t._id}}" class="content-main">
-                            <span class="content-detail">
-                               {{ t.brief }}
-                            </span>
-                        <span class='content-expand'>
-                                <span>more</span>
-                                <svg class="icon icon-down" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"/></svg>
-                            </span>
-                    </a>
-                </div>
-
-                <div class="card-action">
-                <span class="topic-tag {{ t.tag }} front-end">
-                    {{ t.tag }}
-                </span>
-
-                    <span class="action-star">
-                    <i class='fas fa-star icon-font icon-star'></i>
-                    <span class="star-count">
-                        233&nbsp;Stars
-                    </span>
-                </span>
-
-                    <span class="action-comments">
-                    <i class='fas fa-comments icon-font icon-comments'></i>
-                    <span class="comments-count">23&nbsp;Comments</span></span>
-
-                    <span class="action-like">
-                    <i class='fas fa-heart icon-font icon-like'></i>
-                    Like
-                </span>
-
                     <!--<span class="action-share">-->
-                    <!--<i class='fas fa-share-alt icon-font icon-share' ></i>-->
-                    <!--share-->
-                    <!--</span>-->
+                                <!--<i class='fas fa-share-alt icon-font icon-share' ></i>-->
+                                <!--share-->
+                            <!--</span>-->
                 </div>
 
             </div>
-
-            {% endfor %}
 
         </section>
 
@@ -322,9 +242,9 @@
 
 <footer></footer>
 
-<link rel="stylesheet" href="/static/css/css/login.css">
-<script src="/static/js/wd.js"></script>
-<script src="/static/js/todoApi.js"></script>
-<script src="/static/js/login.js"></script>
+<link rel="stylesheet" href="login.css">
+<script src="wd.js"></script>
+<script src="todoApi.js"></script>
+<script src="login.js"></script>
 </body>
 </html>

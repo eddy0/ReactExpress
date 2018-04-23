@@ -5,21 +5,21 @@ const {rank} = require('../utils')
 const { currentUser, loginRequired } = require('./main')
 const router = express.Router()
 
-router.get('/', loginRequired, async (request, response) => {
+router.get('/', async (request, response) => {
     const u = await currentUser(request)
     let ts = await Topic.allList()
     ts = ts.sort(rank('createdTime'))
-    console.log('u', u)
+    console.log('u', u, ts)
     const args = {
         u: u,
         topics: ts,
     }
-    response.render('index.html', args)
+    response.render('redo/index.html', args)
 })
 
 
 router.get('/login', (request, response) => {
-    response.render('login.html')
+    response.render('redo/login.html')
 })
 
 router.post('/login', async (request, response) => {

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>new HTML</title>
+    <!--<link rel="stylesheet" href="/static/css/bootstrap.min.css">-->
+    <!--<link rel="stylesheet" href="/static/css/style.css">-->
+    <!--<link rel="stylesheet" href="/static/lib/editor/editor.css">-->
+    <!--<link rel="stylesheet" href="/static/lib/webuploader/webuploader.css">-->
+    <!--<script src="/static/lib/jquery-3.0.0.min.js"></script>-->
+    <!--<script src="/static/lib/markdownit.js"></script>-->
+    <!--<script src="/static/lib/webuploader/webuploader.withoutimage.js"></script>-->
+    <!--<script src="/static/lib/editor/editor.js"></script>-->
+    <!--<script src="/static/lib/editor/ext.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+    <!-- Font Awesome for awesome icons. You can redefine icons used in a plugin configuration -->
+
+
+    <!-- CSS -->
+    <!-- Font Awesome for awesome icons. You can redefine icons used in a plugin configuration -->
+    <!--引入CSS-->
+    <!--<link rel="stylesheet" type="text/css" href="../../../static/lib/webuploader/webuploader.css">-->
+
+    <!--&lt;!&ndash;引入JS&ndash;&gt;-->
+    <!--<script type="text/javascript" src="../../../static/lib/webuploader/webuploader.withoutimage.js"></script>-->
+
+    <!--SWF在初始化的时候指定，在后面将展示-->
+
+
+
+    <link rel="stylesheet" href="new.css">
+    <link rel="stylesheet" href="../card.css">
+    <link rel="stylesheet" href="/static/css/css/card.css">
+    <link rel="stylesheet" href="/static/css/css/new.css">
+
+
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <div class="header-logo">
+            <a href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#004D40" height="36" viewBox="0 0 24 24" width="36"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>
+            </a>
+        </div>
+        <div class="header-title">
+            Write Your Topic
+        </div>
+
+        <div class="header-info" style="display: none">
+            <div class="header-avatar">
+                <img src="https://vip.kybmig.cc/uploads/avatar/default.gif" alt="" data-action="avatar">
+            </div>
+        </div>
+
+
+    </div>
+</header>
+
+<div class="main">
+<section class="main-title">
+    <!--<input type="file" class="title-img">-->
+    <input type="text" class="title-content" name="title" placeholder="Input the Title">
+
+
+    <div class="tag-content">
+        <span class="tag-header">Select A Tag:</span>
+        <div class="tag-list">
+            <span class="tag-item front-end ">front-end</span>
+            <span class="tag-item back-end">back-end</span>
+        </div>
+
+
+    </div>
+</section>
+    <section class="main-textarea">
+        <div class="text-container" contenteditable="true">
+        </div>
+    </section>
+    <div class="footer">
+        <button class="wd-topic-btn wd-topic-submit ">Submit</button>
+        <!--<button class="wd-topic-btn wd-topic-save  ">Save</button>-->
+    </div>
+<span class="wd-message-box"></span>
+</div>
+
+
+<!--<div class="main">-->
+    <!--<div id="content">-->
+        <!--<div class="panel">-->
+            <!--<div class="inner post">-->
+                <!--<form id="create_topic_form" method="post" action="/topic/add">-->
+                    <!--<fieldset>-->
+                        <!--<textarea autofocus class='span9' id='title' name='title' rows='1' placeholder="标题字数 10 字以上"></textarea>-->
+                        <!--<span class="tab-selector">选择版块：</span>-->
+                        <!--<select name="tag" id="tag" required>-->
+                            <!--<option value="">请选择</option>-->
+                            <!--{% for tag in tags %}-->
+                            <!--<option value="{{ tag.tagName }}">{{ tag.tagName }}</option>-->
+                            <!--{% endfor %}-->
+                        <!--</select>-->
+                        <!--<div class='markdown_editor in_editor'>-->
+                            <!--<div class='markdown_in_editor'>-->
+                                <!--<textarea class='editor' name='content' rows='20' placeholder='文章支持 Markdown 语法, 请注意标记代码'></textarea>-->
+                                <!--<div class='editor_buttons'>-->
+                                    <!--<input type="submit" class='span-primary submit_btn' data-loading-text="提交中" value="提交">-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</fieldset>-->
+                <!--</form>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+
+<!--<script>-->
+    <!--(function () {-->
+        <!--var editor = new Editor();-->
+        <!--editor.render($('.editor')[0]);-->
+    <!--})();-->
+<!--</script>-->
+
+<script src="../wd.js"></script>
+<script src="/static/js/wd.js"></script>
+
+<script>
+
+    const formatContent = (content) => {
+        content = content.split('<div>').join('<br>')
+        content = content.split('</div>').join('<br>')
+        return content
+    }
+
+    const validContent = (str) => {
+        let len = str.length
+        if (len < 4){
+            return false
+        }
+
+        let trim = ''
+        for (let i = 0; i < len; i++ ) {
+            let s = str[i]
+            if (s !== ' '){
+                trim += s
+            }
+        }
+        if (trim.length < 4){
+            return false
+        }
+
+        return str
+    }
+
+    const topicTile = () => {
+        const box = e('.title-content')
+        let title = box.value
+        title = validContent(title)
+        return title
+    }
+
+    const topicTag = () => {
+        const items = es('.selected')
+        if (items.length < 1 ){
+            return false
+        } else {
+            let tags = []
+            for (let i = 0; i < items.length; i++ ) {
+                let tag = items[i].innerText
+                tags.push(tag)
+            }
+            return tags
+        }
+    }
+
+    const topicContent = () => {
+        const box = e('.text-container')
+        let content = box.innerHTML
+        content = formatContent(content)
+        content = validContent(content)
+        return content
+    }
+
+    const NewTopicSubmit = () => {
+        let title = topicTile()
+        let tag = topicTag()
+        let content = topicContent()
+        let valid = title && tag && content
+        if (valid){
+            return {title, tag, content}
+        }
+    }
+
+    const bindTagEvent = () => {
+        bindAll('tag-item', 'click', (event) => {
+            let self = event.target
+            self.classList.toggle('selected')
+        })
+    }
+
+    const actionsSubmit = (element, content) => {
+        let cls = element.classList
+        if (cls.contains('.wd-topic-submit')){
+            console.log(content)
+        }
+    }
+
+    const newTopicEvent = () => {
+        bindTagEvent()
+        // get the title
+        bindAll('wd-topic-btn', 'click', (event) => {
+            let self = event.target
+            let content = NewTopicSubmit()
+            log(content)
+            if (content !== undefined){
+                actionsSubmit(self, content)
+            } else{
+                console.log('todo a reminder')
+                alert('title length must greater then 4; must select a tag ')
+            }
+        })
+    }
+
+    const __TopicMain = () => {
+        newTopicEvent()
+        let editor = new MediumEditor('.text-container')
+
+    }
+
+
+    document.addEventListener("DOMContentLoaded", function(event) {
+        __TopicMain()
+
+    })
+
+
+</script>
+
+
+</body>
+</html>
