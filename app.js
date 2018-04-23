@@ -4,8 +4,6 @@ const bodyParser = require('body-parser')
 const session = require('cookie-session')
 const nunjucks = require('nunjucks')
 
-
-
 const app = express()
 
 const configTemplate = () => {
