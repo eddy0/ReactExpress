@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+
+    <link rel="stylesheet" href="../static/css/index/card.css">
+    <link rel="stylesheet" href="/static/css/index/card.css">
+    <link rel="stylesheet" href="/static/css/topic/new.css">
+    <link rel="stylesheet" href="/static/css/topic/detail.css">
+    <link rel="stylesheet" href="../static/css/topic/detail.css">
+    <link rel="stylesheet" href="../static/css/index/popover.css">
+    <script src="../static/lib/fontawesome-all.min.js"></script>
+
+</head>
+
+<body>
+
+<header>
+    <div class="header-container">
+        <div class="header-logo">
+            <a href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#004D40" height="36" viewBox="0 0 24 24" width="36"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>
+            </a>
+        </div>
+
+        <div class="header-title">
+            <span>Diving in the Sea</span>
+        </div>
+
+        <div class="header-info">
+            <div class="header-avatar">
+                <img src="https://vip.kybmig.cc/uploads/avatar/default.gif" alt="" data-action="avatar">
+                <div class="header-popover" tabindex="0" >
+                    <ul class="wd-popover-list">
+                        <li class="item" data-action="profile">
+                            <a href="/profile/">
+                                <svg viewBox="0 0 20 20" width="14" height="16" aria-hidden="true" style="height: 16px; width: 14px;">
+                                    <g>
+                                        <path d="M13.4170937,10.9231839 C13.0412306,11.5757324 12.5795351,12.204074 12.6542924,12.7864225 C12.9457074,15.059449 18.2164534,14.5560766 19.4340179,15.8344151 C20,16.4286478 20,16.4978969 20,19.9978966 C13.3887136,19.9271077 6.63736785,19.9978966 0,19.9978966 C0.0272309069,16.4978969 0,16.5202878 0.620443914,15.8344151 C1.92305664,14.3944356 7.20116276,15.1185829 7.40016946,12.7013525 C7.44516228,12.1563518 7.02015319,11.5871442 6.63736814,10.9228381 C4.51128441,7.2323256 3.69679769,4.67956187e-11 10,9.32587341e-14 C16.3032023,-4.66091013e-11 15.4216968,7.4429255 13.4170937,10.9231839 Z"></path>
+                                    </g>
+                                </svg>
+                                <span>Profile</span>
+                            </a>
+                        </li>
+                        <li class="item" data-action="logOut">
+                            <a href="/logout">
+                                <svg viewBox="0 0 20 20" class="Icon Button-icon Icon--logout" width="14" height="16" aria-hidden="true" style="height: 16px; width: 14px;"><title></title>
+                                    <g>
+                                        <path d="M0 10C0 7.242 1.154 4.58 3.167 2.697c.51-.477 1.31-.45 1.79.06.475.51.45 1.31-.06 1.787C3.37 5.975 2.53 7.91 2.53 10c0 4.118 3.35 7.468 7.47 7.468 4.12 0 7.47-3.35 7.47-7.47 0-2.04-.81-3.948-2.28-5.37-.5-.485-.514-1.286-.028-1.788.485-.5 1.286-.517 1.79-.03C18.915 4.712 20 7.265 20 10c0 5.512-4.486 9.998-10 9.998s-10-4.486-10-10zm8.7-.483V1.26C8.7.564 9.26 0 9.96 0c.695 0 1.26.564 1.26 1.26v8.257c0 .696-.565 1.26-1.26 1.26-.698 0-1.26-.564-1.26-1.26z"></path>
+                                    </g>
+                                </svg>
+                                <span>Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<aside>
+<div class="content-action">
+    <div class="action-star">
+        <div class="star-count">
+            <!--{{t.stars}}-->
+            1.1K
+        </div>
+        <i class='fas fa-star icon-font icon-star'></i>
+    </div>
+    <div class="action-like">
+        <i class='fas fa-heart icon-font icon-like'></i>
+    </div>
+    <div class="action-bookmark">
+        <svg class="svgIcon-use" width="25" height="25" viewBox="0 0 20 20"><path d="M19 6c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14.66h.012c.01.103.045.204.12.285a.5.5 0 0 0 .706.03L12.5 16.85l5.662 4.126a.508.508 0 0 0 .708-.03.5.5 0 0 0 .118-.285H19V6zm-6.838 9.97L7 19.636V6c0-.55.45-1 1-1h9c.55 0 1 .45 1 1v13.637l-5.162-3.668a.49.49 0 0 0-.676 0z" fill-rule="evenodd"></path></svg>
+    </div>
+    <!--<div class="action-share">-->
+    <!--<i class='fas fa-share-alt icon-font icon-share' ></i>-->
+    <!--share-->
+    <!--</div>-->
+</div>
+</aside>
+
+
+<section class="main">
+    <div class="feed-author">
+        <a href="#" class="author-avatar">
+            <img src="https://vip.kybmig.cc/uploads/avatar/default.gif" alt=""/>
+        </a>
+        <div class="author-detail">
+                    <span class="author-name">
+                        <a href="/user/{{ t.uid }}">瓜瓜</a>
+                    </span>
+            <span class="author-note">
+                        这是一个note
+                    </span>
+        </div>
+    </div>
+    <article class="content-box">
+
+        <!--<input type="file" class="title-img">-->
+
+        <h2 class="content-title" >
+            How to Write a Front-end Article 如何写好一个前端前端前端
+        </h2>
+
+        <div class="content-info">
+            <span class="feed-views">2333 views</span>
+
+        <span class="feed-date">
+                published by 2018-06-03
+            </span>
+        </div>
+        <div class="content-detail">
+            <p>好的这是一个东西,好的这是一个东西.好的这是一个东西,好的这是一个东西.好的这是一个东西,好的这是一个东西.好的这是一个东西,好的这是一个东西.好的这是一个东西,好的这是一个东西.好的这是一个东西,好的这是一个东西.好的这是一个东西,好的这是一个东西.好的这是一个东西,好的这是一个东西.</p>
+            <p>
+                this is very goodi
+                好的这是一个东西
+                好的这是一个东西
+                好的这是一个东的这是一个东西
+                好的这是一个东西
+                好的这是一个东西
+                好的这是一个东西
+                好的这是一个东的这是一个东西
+                好的这是一个东西
+                好的这是一个东西
+            </p>
+            <pre name="ff6b" id="ff6b" class="graf graf--pre graf-after--pre">
+                export default ({ body, title, initialState }) =&gt; {<br>  return `<br>    &lt;!DOCTYPE html&gt;<br>    &lt;html&gt;<br>      &lt;head&gt;<br>        &lt;script&gt;window.__APP_INITIAL_STATE__ = ${initialState}&lt;/script&gt;<br>        &lt;title&gt;${title}&lt;/title&gt;<br>        &lt;link rel="stylesheet" href="/assets/index.css" /&gt;<br>      &lt;/head&gt;<br>      <br>      &lt;body&gt;<br>        &lt;div id="root"&gt;${body}&lt;/div&gt;<br>      &lt;/body&gt;<br>      <br>      &lt;script src="/assets/bundle.js"&gt;&lt;/script&gt;<br>    &lt;/html&gt;<br>  `;<br>};
+            </pre>
+            <p>
+                this is very goodi
+                好的这是一个东西
+                好的这是一个东西
+                好的这是一个东的这是一个东西
+                好的这是一个东西
+                好的这是一个东西
+                好的这是一个东西
+                好的这是一个东的这是一个东西
+                好的这是一个东西
+                好的这是一个东西
+            </p>
+        </div>
+
+
+        <div class="content-tag">
+            <ul class="tag-list">
+                <li class="tag-item">
+                    <a href="#">
+                        front-end
+                    </a>
+                </li>
+                <li class="tag-item">
+                    <a href="#">
+                        front-end
+                    </a>
+                </li>
+                <li class="tag-item">
+                    <a href="#">
+                        front-end
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+
+    </article>
+    <hr>
+
+    <section class="comment-box">
+        <div class="comment-title">
+            Comments
+        </div>
+
+        <div class="comment-add clear-fix">
+        <section class="input-comment-add" contenteditable="true">
+        </section>
+            <div class="wd-comment-btn ">
+
+                submit</div>
+        </div>
+
+        <div class="comment-list">
+                <div class="comment-item">
+                    <div class="comment-feed">
+                        <span class="comment-author">
+                            <a href="#" class="comment-author-self">
+                            呵呵哒 (author)
+                            </a>
+
+
+                            <span class="word-reply-to">reply to</span>
+
+                            <a href="" class="comment-reply-to">
+                                gua
+                            </a>
+
+
+
+                        </span>
+
+                        <span class="comment-date">
+                            one day ago
+                        </span>
+
+                    </div>
+
+
+                    <div class="comment-content">
+                        <p>
+                            只要保，内存里是无所，内存里是无所谓的。而且就算是两只要保证符合 ECMAScript 只要保证符合 ECMAScript 规范规定的语义，内存里是无所，内存里是无所，内存里是无所谓的。而且就算是两
+                        </p>
+                        <br>
+                        <span>
+                            只要保，内存里是无所，内存里是无所谓的。而且就算是两只要保证符合 ECMAScript 只要保证符合 ECMAScript 规范规定的语义，内存里是无所，内存里是无所，内存里是无所谓的。而且就算是两
+                        </span>
+                    </div>
+
+                    <div class="comments-action">
+
+                    </div>
+
+                </div>
+
+            <div class="comment-item">
+                <div class="comment-feed">
+                    <a href="#" class="userLink">
+                            <span class='comment-author'>
+                                        呵呵哒
+                            </span>
+                    </a>
+                    <span class="comment-date">
+                                        one day ago
+                        </span>
+                </div>
+                <div class="comment-content">
+                        <span>
+                            只要保，内存里是无所，内存里是无所谓的。而且就算是两只要保证符合 ECMAScript 只要保证符合 ECMAScript 规范规定的语义，内存里是无所，内存里是无所，内存里是无所谓的。而且就算是两
+                        </span>
+                </div>
+                <div class="comments-action"></div>
+
+            </div>
+
+        </div>
+
+
+    </section>
+</section>
+
+
+
+
+
+
+<div class="wd-alert-container"></div>
+
+
+
+<script src="/static/js/wd.js"></script>
+<script src="/static/js/todoApi.js"></script>
+<script src="/static/js/alertAction.js"></script>
+
+
+</body>
+</html>
