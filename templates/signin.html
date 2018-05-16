@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/static/css/sign_in/login.css">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: -apple-system, Helvetica, 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body{
+            font: inherit;
+            color: inherit;
+            font-size: 18px;
+            background-color: #E8F3EC;
+        }
+
+        ul, li{
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .wd-login-box{
+            box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+        }
+
+        .wd-login-title{
+            font-size: 27px;
+            font-weight: 600;
+            color: #2e2e2e;
+            margin-bottom: 30px;
+        }
+
+    </style>
+    <title>Document</title>
+</head>
+<body>
+<div class="wd-login-container alert-show">
+    <div class="wd-login-overlay"></div>
+    <div class="wd-login-box">
+<div class="wd-login-container">
+    <div class="wd-login-title">
+        Welcome Back
+    </div>
+    <form action="/signin" method="post" id="signin">
+
+    <div class="wd-login-inputWrapper">
+        <input class="wd-login-input login-username" name="username" type="text" placeholder="username">
+        <input class="wd-login-input login-password" name="password" type="password" placeholder="password">
+        <span class="wd-hint" style="display: block; font-size: 14px;line-height:20px; height: 20px; color: salmon">
+                        {% if (flash | length ) > 0 %}
+                        {{ flash.message }}
+                        {% endif %}
+                    </span>
+    </div>
+    <div class="wd-login-btns">
+        {% if (flash | length ) > 0 %}
+        <input  name="nextUrl" type="text" value="{{ flash.nextUrl }}" hidden style="display: none">
+        {% else %}
+        <input  name="nextUrl" type="text" value="{{ nextUrl }}" hidden style="display: none">
+        {% endif %}
+        <button type="submit" class="wd-login-btn wd-login-submit">
+            Sign In
+        </button>
+    </div>
+    </form>
+
+    <div class="wd-login-signup">
+        <span>No account? </span>
+        <a href="/signup">Create one.</a>
+    </div>
+</div>
+
+    </div>
+</div>
+<!--<script src="wd.js"></script>-->
+<script src="/static/js/wd.js"></script>
+
+
+
+
+
+</body>
+</html>

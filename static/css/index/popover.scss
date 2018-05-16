@@ -1,0 +1,55 @@
+
+//a popover component
+
+.wd-popover-list{
+  background-color: #fff;
+  box-shadow: 0px 3px 9px -3px rgba(0, 0, 0, 0.4);
+  border-radius: 3px;
+  padding-top: 10px;
+  position: relative;
+  z-index: 500;
+
+  &:after{
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 10px;
+    height: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 5px -2px rgba(0, 0, 0, 0.4);
+    z-index: 499;
+    box-sizing: border-box;
+  }
+
+  & > li{
+    cursor: pointer;
+    padding: 10px 16px;
+    font-size: inherit;
+    text-align: left;
+
+    & > a{
+      display: flex;
+      color: #8590a6;
+      fill: #8590a6;
+
+      &:hover{
+        color: #1e1e1e;
+        fill:#1e1e1e;
+      }
+
+      & svg{
+        margin-right: 4px;
+      }
+    }
+  }
+
+  & >    li + li {
+    border-top: 1px solid #f1f1f1 ;
+  }
+
+
+}
+
+

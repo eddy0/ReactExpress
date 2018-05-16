@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="/static/css/components/header.css" rel="stylesheet">
+
+    <script src="/static/lib/jquery-3.3.1.min.js"></script>
+    <link href="/static/lib/video-js.min.css" rel="stylesheet">
+    <script src="/static/lib/video.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #f6f6f6;
+            font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", "Source Han Sans SC", "Noto Sans CJK SC", "WenQuanYi Micro Hei", sans-serif;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        body > header > .header-container {
+            max-width: 1380px;
+        }
+
+        @media screen and (min-width: 960px) {
+            .main {
+                display: flex;
+                max-width: 1380px;
+                margin: 50px auto;
+                border-radius: 5px;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+
+            }
+            .wrapper{
+                width: 100%;
+            }
+        }
+
+
+        .video-js .vjs-current-time {
+            display: block;
+        }
+
+        .source {
+            -webkit-tap-highlight-color:transparent;
+            background-color: #ebebeb;
+        }
+
+        .source ul {
+            -webkit-tap-highlight-color:transparent;
+        }
+
+
+        .src-item {
+            margin: 8px 0;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.2);
+            padding: 15px;
+            background-color: #f1f1f1;
+            color: lightseagreen;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.4s;
+            -webkit-tap-highlight-color:transparent;
+        }
+        
+        .src-item.item-active {
+            background-color: darkseagreen;
+            color: #fff;
+        }
+
+        .vjs-playback-rate .vjs-playback-rate-value {
+            pointer-events: none;
+            font-size: 1em;
+            line-height: 3em;
+            text-align: center;
+        }
+
+    </style>
+    <title>video</title>
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <div class="header-logo">
+            <a href="/">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#004D40" height="36" viewBox="0 0 24 24" width="36"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>
+            </a>
+        </div>
+
+        <div class="header-title">
+            <span>Something Awesome</span>
+        </div>
+
+    </div>
+</header>
+
+
+<div class="main">
+<div class="wrapper">
+<video
+        id="id-video-player"
+        class="video-js"
+        controls
+        preload="auto"
+        data-setup='{
+        "fluid": true,
+        "playbackRates": [0.5, 1, 1.5, 2]
+        }'>
+        <source src="/video/src/FreeReactDay1.mp4" type="video/mp4"></source>
+</video>
+</div>
+
+
+<div class="source">
+    <ul>
+        <li class="src-item item-active" data-path="FreeReactDay1.mp4"> FreeReactDay1 </li>
+        <li class="src-item" data-path="FreeReactDay2.mp4"> FreeReactDay2 </li>
+        <li class="src-item" data-path="FreeReactDay3.mp4"> FreeReactDay3 </li>
+        <li class="src-item" data-path="FreeReactDay4.mp4"> FreeReactDay4 </li>
+        <li class="src-item" data-path="Server Rendering with React and React Router v4-mZEv4mHsU5E.mp4"> React and Express </li>
+    </ul>
+</div>
+</div>
+</body>
+
+<script src="/static/js/wd.js" ></script>
+
+<script>
+    const toggleClass = (className, element) => {
+        removeClassAll(className)
+        element.classList.add(className)
+    }
+</script>
+
+<!--menuEvent-->
+<script >
+    const menuEvent = (video) => {
+        const list = e('.source')
+        list.addEventListener('click',  (event) => {
+            console.log('click')
+            let self = event.target
+            if (self.classList.contains('src-item')) {
+                let path = self.dataset.path
+                let url = '/video/src/' + path
+                let myVideo = videojs('id-video-player')
+                myVideo.src([
+                    {type: "video/mp4", src: `${url}`},
+                ])
+                toggleClass('item-active', self)
+            }
+        })
+    }
+
+</script>
+
+<!--playerEvent-->
+<script >
+    const Toggleplay = () => {
+        let button = e('.vjs-play-control')
+        button.click()
+    }
+
+    const playBack = (video) => {
+        video.currentTime = video.currentTime  - 15
+    }
+
+    const playerForward = (video) => {
+        video.currentTime = video.currentTime  + 15
+    }
+
+    const CancelFullScreen = () => {
+        let player = e('#id-video-player')
+        if (player.classList.contains('.vjs-fullscreen')) {
+            player.classList.remove('vjs-fullscreen')
+        }
+    }
+
+    const playerEvent = (video) => {
+        let keyMapper = {
+            " ": Toggleplay,
+            "ArrowLeft": playBack,
+            "ArrowRight": playerForward,
+            "Escape": CancelFullScreen,
+        }
+        window.addEventListener('keyup', (event) => {
+            let key = event.key
+            for (let k in keyMapper ) {
+                if (k === key) {
+                    event.preventDefault()
+                    keyMapper[key](video)
+                }
+            }
+        })
+    }
+</script>
+
+
+
+<script >
+
+    const __main = () => {
+        const video = e('video')
+        playerEvent(video)
+        menuEvent(video)
+    }
+
+    $(document).ready(() => {
+        __main()
+    })
+</script>
+</html>

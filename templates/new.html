@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>new HTML</title>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/medium-editor@5.23.3/dist/css/themes/beagle.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+
+    <script src="/static/lib/markdownit.js"></script>
+    <script src="https://unpkg.com/turndown/dist/turndown.js"></script>
+
+
+
+
+    <!-- CSS -->
+    <!-- Font Awesome for awesome icons. You can redefine icons used in a plugin configuration -->
+    <!--引入CSS-->
+    <!--<link rel="stylesheet" type="text/css" href="../../../static/lib/webuploader/webuploader.css">-->
+
+    <!--&lt;!&ndash;引入JS&ndash;&gt;-->
+    <!--<script type="text/javascript" src="../../../static/lib/webuploader/webuploader.withoutimage.js"></script>-->
+
+    <!--SWF在初始化的时候指定，在后面将展示-->
+
+
+
+    <!--<link rel="stylesheet" href="new.css">-->
+    <!--<link rel="stylesheet" href="../card.css">-->
+    <!--<link rel="stylesheet" href="/static/css/index/card.css">-->
+    <link rel="stylesheet" href="/static/css/topic/new.css">
+
+
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <div class="header-logo">
+            <a href="/">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#004D40" height="36" viewBox="0 0 24 24" width="36"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>
+            </a>
+        </div>
+        <div class="header-title">
+            Write Your Topic
+        </div>
+
+        <div class="header-info" style="display: none">
+            <div class="header-avatar">
+                <img src="{{user.avatar}}" alt="" data-action="avatar">
+            </div>
+        </div>
+
+
+    </div>
+</header>
+
+<div class="main">
+<section class="main-title">
+    <!--<input type="file" class="title-img">-->
+    <input type="text" class="title-content" name="title" placeholder="Input the Title">
+
+
+    <div class="tag-content">
+        <span class="tag-header">Select A Tag&nbsp;:</span>
+        <div class="tag-list">
+            {% for tag in tags %}
+            <span class="tag-item {{ tag.name }} "> {{ tag.name }}</span>
+            {% endfor %}
+        </div>
+        <div class="tag-hint ">
+            <span>At Least One Tag</span>
+        </div>
+
+    </div>
+
+
+</section>
+    <section class="main-textarea">
+
+        <div class="text-container" contenteditable="true"></div>
+        <!--<div class="markdown-container" contenteditable="true" style="position: absolute;-->
+    <!--width: 500px;-->
+    <!--height: 500px;-->
+    <!--left: 67px;-->
+    <!--top: 135px;-->
+    <!--border: 1px solid #000;"></div>-->
+    </section>
+    <div class="footer">
+        <button class="wd-topic-btn wd-topic-submit ">Submit</button>
+        <!--<button class="wd-topic-btn wd-topic-save  ">Save</button>-->
+    </div>
+</div>
+<div class="wd-alert-container"></div>
+
+
+
+<script src="/static/js/wd.js"></script>
+<script src="/static/js/todoApi.js"></script>
+<script src="/static/js/alertAction.js"></script>
+<script src="/static/js/newTopic.js"></script>
+
+
+</body>
+</html>

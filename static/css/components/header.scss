@@ -1,0 +1,153 @@
+
+
+body > header {
+    font-size: 15px;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(black, 0.2);
+    background-color: #fff;
+
+
+    & > .header-container {
+        max-width: 1000px;
+        display: flex;
+        align-items: center;
+        margin: 0 auto;
+        padding: 8px;
+
+    }
+}
+
+header .header-logo {
+    & a{
+        display: flex;
+        fill: #00a699
+    }
+}
+
+.header-nav > a.active{
+    color: #00736a;
+}
+
+.header-nav > a {
+    display: inline-block;
+    color: #1e1e1e;
+    height: inherit;
+    padding: 0 15px;
+    font-size: 20px;
+    line-height: 30px;
+
+    &:hover{
+        color: #FF7851;
+    }
+}
+
+header .header-search{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    & .input-wrapper{
+        box-sizing: border-box;
+
+    }
+    & input{
+        display: block;
+        margin: 0 auto;
+        height: 20px;
+        font-size: 15px;
+        line-height: 20px;
+        overflow: hidden;
+        border-radius: 3px;
+        padding: 6px 20px 6px 10px;
+        border: 1px solid rgba(black, 0.3);
+        background-color: #f6f6f6;
+        outline: 0;
+    }
+}
+
+header .header-info{
+    margin-left: auto ;
+}
+
+header .header-avatar {
+    cursor: pointer;
+    position: relative;
+    float: right;
+    & > img{
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        float: right;
+
+    }
+}
+
+.header-avatar .header-popover {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 48px;
+    transform:translateX(calc(-50% + 15px));
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+.header-popover.show-user{
+    display: block;
+
+    &:focus{
+        outline: 0;
+    }
+}
+
+header .header-login{
+    & .signIn{
+        color: #00a699;
+        margin-right: 10px;
+
+        &:hover{
+            color: #e83e8c;
+        }
+    }
+
+    & .signUp{
+        color: #00a699;
+        border: 1px solid rgba(#00a699, 0.3);
+        padding: 6px;
+        border-radius: 3px;
+        box-sizing: border-box;
+
+        &:hover{
+            color: #fff;
+            background-color: #00a699;
+            border-color: #00a699;
+        }
+    }
+}
+
+@media (max-width: 315px ) {
+    header .header-title {
+        display: none;
+    }
+}
+
+header .header-title{
+    position: relative;
+    font-size: 18px;
+    line-height: 30px;
+    color: #2e2e2e;
+    margin-left: 50px;
+    text-align: center;
+
+    &:before {
+        content: "";
+        width: 2px;
+        height: 30px;
+        background-color: #dfdfdf;
+        position: absolute;
+        left: -20px;
+        margin-right: 30px;
+
+    }
+}
+
+

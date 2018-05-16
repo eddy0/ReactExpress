@@ -1,0 +1,30 @@
+[
+  {
+    "createdTime": 1524538620586,
+    "updatedTime": 1524538590217,
+    "_id": 1,
+    "activated": true,
+    "name": "front-end"
+  },
+  {
+    "createdTime": 1524538620586,
+    "updatedTime": 1524538604728,
+    "_id": 2,
+    "activated": true,
+    "name": "back-end"
+  },
+  {
+    "createdTime": 1524538620583,
+    "updatedTime": 1524538620583,
+    "_id": 3,
+    "activated": true,
+    "name": "block-chain"
+  },
+  {
+    "createdTime": 1524538620583,
+    "updatedTime": 1524538620583,
+    "_id": 4,
+    "activated": true,
+    "name": "algorithm"
+  }
+]

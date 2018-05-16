@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Game</title>
+    <link href="/static/css/components/header.css" rel="stylesheet">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", "Source Han Sans SC", "Noto Sans CJK SC", "WenQuanYi Micro Hei", sans-serif;
+        }
+        #id-canvas-game {
+            border: 2px solid #e1e1e1;
+        }
+
+        .main {
+            margin-top: 30px;
+        }
+
+        .wrapper {
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        #id-button-debug{
+
+        }
+
+        #id-debug-hint {
+            display: none;
+            font-size: 18px;
+            color: #2e2e2e;
+        }
+
+        #id-debug-hint.open {
+            display: block;
+        }
+
+
+        button:focus{
+            border: 0;
+            outline: 0;
+            background-color: lightblue;
+        }
+
+
+    </style>
+
+  
+</head>
+<body>
+<header>
+    <div class="header-container">
+        <div class="header-logo">
+            <a href="/">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#004D40" height="36" viewBox="0 0 24 24" width="36"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>
+            </a>
+        </div>
+
+        <div class="header-title">
+            <span>Canvas Game</span>
+        </div>
+
+    </div>
+</header>
+
+<div class="main">
+    <div class="wrapper">
+<canvas id="id-canvas-game" width="400px" height="300px"></canvas>
+<br>
+<button id="id-button-debug" style=" padding: 13px;margin: 30px;border: 0;background-color: darkseagreen;color: #fff;font-size: 18px;">debug button</button>
+<div id="id-debug-hint"> active debug: press p to pause, and enable drag </div>
+
+</div>
+</div>
+
+<!--<br>-->
+<!--<span>自动生成坐标</span>-->
+<!--<div id="id-edit-result" style="max-width: 400px; word-break: break-all; word-wrap: break-word"></div>-->
+
+<script src="/static/game/game/game/utils.js"></script>
+<script src="/static/game/game/game/game.js"></script>
+<script src="/static/game/game/scene/img.js"></script>
+<script src="/static/game/game/scene/scene.js"></script>
+<script src="/static/game/game/scene/scene_start.js"></script>
+<script src="/static/game/game/scene/scene_end.js"></script>
+<!--<script src="/static/game/scene/levels.js"></script>-->
+
+<script>
+    const showEvent = () => {
+        const button = e('#id-button-debug')
+        button.addEventListener('click', () => {
+            let hint = e('#id-debug-hint')
+            hint.classList.toggle('open')
+        })
+
+    }
+
+</script>
+
+
+<script>
+
+
+    const __main =  () => {
+
+        showEvent()
+
+        let images = {
+            paddle: '/static/game/src/paddle.png',
+            ball: '/static/game/src/ball.png',
+            block: '/static/game/src/block.png',
+        }
+
+        window.fps = 30
+        let g =  Game.single(fps, images, (game) => {
+            let scene = new SceneStart(game)
+            game.runWithScene(scene)
+        })
+
+
+    }
+
+    __main()
+
+</script>
+
+</body>
+</html>

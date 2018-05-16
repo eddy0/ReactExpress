@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>todo list</title>
+    <link rel="stylesheet" href="/static/css/todo/todo.css">
+    <!--<script src='require.js'  data-main='app.js' > </script>-->
+    
+    <!--<script src="utils.js"></script>-->
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <div class="header-logo">
+            <a href="/">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#004D40" height="36" viewBox="0 0 24 24" width="36"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>
+            </a>
+        </div>
+
+        <div class="header-title">
+            <span>Calendar Todo</span>
+        </div>
+
+    </div>
+</header>
+
+
+
+
+
+<div class="main">
+    <div class="calendar-box">
+        <header class="header">
+            <div class="currentYear">2018</div>
+            <a href="#" class="previous">&lt;</a>
+            <a href="#" class="next">&gt;</a>
+        </header>
+        <div>
+            <ul class="month-lists">
+                <li class="month-detail" data-month="0">JAN</li>
+                <li class="month-detail" data-month="1">FEB</li>
+                <li class="month-detail" data-month="2">MAR</li>
+                <li class="month-detail" data-month="3">APR</li>
+                <li class="month-detail" data-month="4">MAY</li>
+                <li class="month-detail" data-month="5">JUN</li>
+                <li class="month-detail" data-month="6">JUL</li>
+                <li class="month-detail" data-month="7">AUG</li>
+                <li class="month-detail" data-month="8">SEP</li>
+                <li class="month-detail" data-month="9">OCT</li>
+                <li class="month-detail" data-month="10">NOV</li>
+                <li class="month-detail" data-month="11">DEC</li>
+            </ul>
+        </div>
+        <div class="calendar-body">
+            <ul class="week-lists">
+                <li class="week-special">SUN</li>
+                <li class="week-special">MON</li>
+                <li class="week-special">TUE</li>
+                <li class="week-special">WED</li>
+                <li class="week-special">THU</li>
+                <li class="week-special">FRI</li>
+                <li class="week-special">SAT</li>
+            </ul>
+            <div class="wrapper">
+                <ul class="date-lists">
+                <!--<li class="previous-dateList">-->
+                    <!--<span>28</span>-->
+                    <!--<svg class="icon icon-reminder" fill="#000" height="20" viewBox="0 0 34 34" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path></svg></li>-->
+                <!--<li class="previous-dateList">29</li>-->
+                <!--<li class="previous-dateList">30</li>-->
+                <!---->
+                <!--<li class="current-dateList" >1</li>-->
+                <!--<li class="current-dateList">2</li>-->
+                <!--<li class="current-dateList active">-->
+                    <!--<span>3</span>-->
+                    <!--<svg class="icon icon-reminder" fill="#000" height="20" style="text-align: center" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path></svg>-->
+                <!--</li>-->
+                <!--<li class="current-dateList">4</li>-->
+                <!--<li class="current-dateList">5</li>-->
+                <!--<li class="current-dateList">6</li>-->
+                <!--<li class="current-dateList">7</li>-->
+                <!--<li class="current-dateList">8</li>-->
+                <!--<li class="current-dateList">9</li>-->
+                <!--<li class="current-dateList">10</li>-->
+                <!--<li class="current-dateList">11</li>-->
+                <!--<li class="current-dateList">12</li>-->
+                <!--<li class="current-dateList">13</li>-->
+                <!--<li class="current-dateList">14</li>-->
+                <!--<li class="current-dateList">15</li>-->
+                <!--<li class="current-dateList">16</li>-->
+                <!--<li class="current-dateList">17</li>-->
+                <!--<li class="current-dateList">18</li>-->
+                <!--<li class="current-dateList">19</li>-->
+                <!--<li class="current-dateList">20</li>-->
+                <!--<li class="current-dateList">21</li>-->
+                <!--<li class="current-dateList">22</li>-->
+                <!--<li class="current-dateList">23</li>-->
+                <!--<li class="current-dateList">24</li>-->
+                <!--<li class="current-dateList">25</li>-->
+                <!--<li class="current-dateList">-->
+                    <!--<span>35</span>-->
+                    <!--<svg class="icon icon-reminder" fill="#000" height="20" style="text-align: center" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path></svg>-->
+                <!--</li>-->
+                <!--<li class="current-dateList">27</li>-->
+                <!--<li class="current-dateList">28</li>-->
+                <!--<li class="current-dateList">29</li>-->
+                <!--<li class="current-dateList">30</li>-->
+                <!--<li class="next-dateList">1</li>-->
+                <!--<li class="next-dateList">2</li>-->
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="content-box">
+        <div class="content-wrapper">
+            <div class="content-date-detail">
+                <div class="content-year">2018</div>
+                <div class="date-wrapper">
+                    <div class="content-day">MONDAY</div>
+                    <div >
+                        <span class="content-month">APRIL</span>
+                        <span class="content-date">6TH</span> </div>
+                </div>
+            </div>
+            <div class="reminder-container">
+                <h3 class="title">REMINDERS</h3>
+                
+                <div class="reminder-items">
+                    <!--<div class="reminder-item">-->
+                        <!--<input type="checkbox" class="item-status" >-->
+                        <!--<span class="item-content">todo: different date for different reminder</span>-->
+                    <!--</div>-->
+                    <!--<div class="reminder-item">-->
+                        <!--<input type="checkbox" class="item-status">-->
+                        <!--<span class="item-content" contenteditable="true">ajax data interaction</span>-->
+                    <!--</div>-->
+                    <!--<div class="reminder-item">-->
+                            <!--<input type="checkbox" class="item-status">-->
+                        <!--<span class="item-content done">if has reminder, then show css on calendar</span>-->
+                        <!--<div class="item-actions">-->
+                            <!--<svg class="icon icon-edit" fill="#ffffff" height="20" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path></svg>-->
+                            <!--<svg class="icon icon-delete" fill="#ffffff" height="20" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"></path></svg>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                </div>
+    
+                <div class="add-item-container">
+                    <div class="add-item-cell">
+                        <input type="text" class="add-item-content">
+                    </div>
+                    <div class="add-item-button open">
+                        <svg class="icon icon-add" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="shadow-effect"></div>
+    
+    </div>
+</div>
+
+<script src="/static/js/wd.js"></script>
+<script src="/static/js/todoApi.js"></script>
+<script src="/static/js/calendarEvent.js"></script>
+<script src="/static/js/reminder.js"></script>
+<script src="/static/js/data.js"></script>
+<script src="/static/js/markEvent.js"></script>
+<script src="/static/js/calendarTodo.js"></script>
+
+
+
+
+</body>
+</html>

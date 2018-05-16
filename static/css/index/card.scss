@@ -1,0 +1,409 @@
+
+$header-color: #00a699;
+$green: #4aa48a;
+//$font-family-base: "Montserrat", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+$font-family-base: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", "Source Han Sans SC", "Noto Sans CJK SC", "WenQuanYi Micro Hei", sans-serif;
+//$font-family-base: "Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif!important;
+
+
+@mixin flex {
+  display: flex;
+  align-items: center;
+}
+
+$front-end: #2bb5d9;
+$read: #ff955b;
+$back-end:#e8596b;
+$mobile: #857dea;
+
+$primary: #78C2AD;
+$secondary: #F3969A;
+$light-secondary: #f7c0c2;
+$info:#6CC3D5;
+$pink: #e83e8c;
+$warning: #FFCE67;
+$danger:#FF7851;
+$light-grey: #8590a6;
+$grey: #646464;
+$dark-grey:#1e1e1e;
+// 3c3c3c 1e1e1e
+$light-line: #e5e5e5;
+$blue: rgb(43, 120, 193);
+
+
+
+.front-end {
+  background-color: $front-end;
+  &:hover{
+    background-color: darken($front-end, 10%);
+  }
+}
+
+.back-end {
+  background-color: $back-end;
+  &:hover{
+    background-color:darken($back-end, 15%)
+  }
+}
+
+.block-chain {
+  background-color: lighten($danger, 10%);
+  &:hover{
+    background-color:$danger;
+  }
+}
+
+.algorithm {
+  background-color: $primary;
+  &:hover{
+    background-color:darken($primary, 15%);
+  }
+}
+
+
+
+
+.front-end.selected{
+  background-color: darken($front-end, 10%);
+}
+
+.back-end.selected {
+  background-color:darken($back-end, 20%)
+}
+
+
+
+
+.wd-card{
+  color: rgba(0, 0, 0, 0.87);
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(black, 0.2);
+  border-radius: 3px;
+  z-index: 1;
+  margin-bottom: 10px;
+  transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+  position: relative;
+  padding: 16px;
+}
+
+.wd-card .card-remove {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+  z-index: 10;
+
+  .icon-clear {
+    fill: #646464;
+
+    &:hover{
+      fill: #000;
+    }
+  }
+}
+
+.wd-card .feed-date {
+    padding-top: 4px;
+    position: relative;
+    color: $light-grey;
+    font-size: 15px;
+  }
+
+.wd-card .feed-author {
+  padding: 10px 0;
+  position: relative;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+
+  .author-avatar {
+    margin-right: 16px;
+
+    & > img {
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+    }
+  }
+
+  .author-detail {
+    white-space: normal;
+
+    .author-name {
+      color: #1e1e1e;
+      font-weight: 600;
+      display: block;
+      margin: 0 11px;
+
+      & > a {
+        font-size: 16px;
+
+        &:hover {
+          color: #225e97;
+        }
+      }
+
+    }
+    .author-note {
+      display: block;
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.5);
+      position: relative;
+
+      &:before {
+        content: '"';
+        position: relative;
+        left: 4px;
+      }
+
+      &:after {
+        content: '"';
+        position: relative;
+        right: 4px;
+      }
+    }
+  }
+}
+
+.wd-card .content-box {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  transition: all 0.3s;
+
+  .content-title {
+      word-break: break-all;
+      word-wrap: break-word;
+    display: inline-block;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+    &:hover {
+      color: #646464;
+    }
+  }
+
+  .content-main {
+    display: block;
+    margin-bottom: 10px;
+
+    .content-detail {
+      line-height: 1.6;
+      word-break: break-all;
+      cursor: pointer;
+      &:hover {
+        color: #646464;
+      }
+    }
+
+    .content-expand {
+      margin-left: 10px;
+      cursor: pointer;
+      color:$blue;
+      font-size: inherit;
+      position: relative;
+
+      &:hover svg path, &:hover {
+        fill: $light-grey;
+        color:$light-grey;
+      }
+
+      .icon-down {
+        fill: $light-grey;
+        position: absolute;
+        top: 60%;
+        transform: translate(0, -50%);
+      }
+    }
+  }
+}
+
+.wd-card .tag-list{
+  display: flex;
+  margin: 12px 0;
+
+  .topic-tag{
+    margin-right: 10px;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 10px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+  }
+
+}
+
+.wd-card .card-action {
+  display: flex;
+  align-items: center;
+  cursor: default;
+  margin-top: 20px;
+
+      & > span {
+        margin-right: 30px;
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+
+        cursor: pointer;
+        color: $grey;
+
+        & .icon-font {
+          margin-right: 4px ;
+        }
+      }
+
+      .action-comments:hover{
+          color: $dark-grey;
+      }
+
+      .action-mark {
+        &:hover, &:hover svg{
+          color:$dark-grey;
+        }
+
+        &.marked{
+          color:$green;
+          .icon-star{
+            color: $green;
+          }
+        }
+      }
+
+      .action-like {
+        &:hover{
+          color:$dark-grey;
+          .icon-like {
+            color: $light-secondary;
+          }
+        }
+      }
+
+      .action-like.liked{
+        color:$dark-grey;
+        .icon-like{
+          color: $secondary;
+        }
+      }
+
+      .action-star {
+        &:hover{
+          color:$dark-grey;
+          .icon-like {
+            color: $light-secondary;
+          }
+        }
+      }
+
+      .action-star.starred{
+        color: #cd8b00;
+        .icon-mark{
+          fill: #cd8b00;
+          color: #cd8b00;
+        }
+      }
+
+
+
+}
+
+.wd-card .topic-tag {
+  color: #fff;
+  padding: 6px 8px;
+  border-radius: 2px;
+  box-shadow: 0 1px 2px rgba(black, 0.2);
+  font-size: 15px;
+
+  & > span {
+    color: inherit;
+    cursor: default;
+  }
+}
+
+
+
+
+.comments-container {
+  margin: 16px;
+  padding: 10px 16px;
+  position: relative;
+  box-shadow: 0 3px 15px rgba(black, 0.2);
+
+  .comment-bar {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.3;
+    padding: 10px 0;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+    border-bottom: 1px solid $light-grey;
+
+    div {
+      padding: 0 15px
+    }
+  }
+
+  .comments-list {
+    margin: 10px 0;
+
+    & > div + div {
+      border-top: 1px solid $light-line;
+    }
+
+    .comments-item {
+      font-size: 14px;
+      margin-bottom: 10px;
+      padding: 15px 0;
+
+      .comments-user {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+
+        .userLink {
+          display: flex;
+          align-items: center;
+          color: $grey;
+
+          & img {
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+            margin-right: 5px;
+          }
+        }
+      }
+
+      .comments-content {
+        padding: 0 5px;
+        line-height: 1.6;
+
+      }
+
+      .comments-action {
+        padding: 10px 16px;
+        color: $grey;
+        font-size: 16px;
+        cursor: pointer;
+
+        .icon-font {
+          color: $grey;
+        }
+
+        &:hover svg, &:hover {
+          color: $dark-grey;
+        }
+
+      }
+
+    }
+  }
+}
+
+

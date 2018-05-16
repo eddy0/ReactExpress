@@ -5,68 +5,214 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script defer src="/static/js/fontawesome-all.min.js"></script>
-    <link rel="stylesheet" href="/static/css/signup.css">
-    
-    <title>Signup</title>
+    <link rel="stylesheet" href="/static/css/sign_up/login.css">
+    <script src="/static/lib/fontawesome-all.min.js"></script>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: -apple-system, Helvetica, 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body{
+            font: inherit;
+            color: inherit;
+            font-size: 18px;
+            background-color: #D7EFEE;
+        }
+
+        ul, li{
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .wd-login-box{
+            box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+        }
+
+        .wd-login-box{
+            background-color: #D7EFEE;
+
+        }
+
+        .wd-login-box .wd-login-input {
+            margin: 5px auto;
+            font-size: 18px;
+        }
+
+        .wd-login-title{
+            font-size: 27px;
+            font-weight: 600;
+            color: #2e2e2e;
+            margin-bottom: 30px;
+        }
+    </style>
+    <style>
+        .prevent {
+            background: #ccc!important;
+            cursor: not-allowed !important;
+        }
+
+        button.prevent:focus {
+            background: #ccc;
+        }
+
+        button.prevent:hover {
+            background: #ccc;
+        }
+
+        .wd-password-valid.active, .wd-username-valid.active {
+            display: block!important;
+        }
+
+        .wd-popover-list {
+            border-radius: 3px;
+            position: relative;
+            z-index: 500;
+            background-color: #fff;
+
+        }
+
+        .wd-popover-list:after{
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -14px;
+            transform: translateY(-50%)  rotate(45deg);
+            width: 10px;
+            height: 10px;
+            background-color: #fff;
+            z-index: 499;
+            box-sizing: border-box;
+            border: 0;
+         }
+
+        .wd-password-valid {
+            display: none !important;
+            position: absolute;
+            right: -151px;
+            top: 62px;
+            color: #999;
+            font-size: 13px;
+            background-color: #fff;
+            padding: 10px;
+            box-shadow: 0px 3px 9px -3px rgba(0, 0, 0, 0.4);
+        }
+
+        .wd-username-valid {
+            display: none!important;
+            position: absolute;
+            right: -151px;
+            top: -25px;
+            color: #999;
+            font-size: 13px;
+            background-color: #fff;
+            padding: 10px;
+            box-shadow: 0px 3px 9px -3px rgba(0, 0, 0, 0.4);
+        }
+        .wd-username-valid > ul, .wd-password-valid> ul {
+            text-align: left;
+        }
+
+        .wd-username-valid  ul > li, .wd-password-valid li {
+            display: flex;
+        }
+        .wd-username-valid svg, .wd-password-valid svg {
+            margin-right: 3px;
+        }
+        .wd-popover-list .item.valid svg{
+            color: #00a699;
+            fill: #00a699;
+        }
+    </style>
+    <title>Document</title>
 </head>
 <body>
-<div>
-    <form action="/register" method="post" id="signup-form">
-        <div class="heading">Sign Up</div>
-        <div class="left">
-            <input type="text" name="username" id="username" placeholder='Username'/>
-            <input type="password" name="password" class="password" placeholder='Password' />
-            <input type="password" name="confirmation" class="confirm" placeholder='Confirm Password' />
-            <input class='submit' type="submit" value="Sign up" />
-            <br>
-            <div class='login'>
-                <span> Already Signed Up <a href="/login"> Login </a></span>
+<div class="wd-login-container alert-show">
+    <div class="wd-login-overlay"></div>
+    <div class="wd-login-box">
+        <div class="wd-login-container">
+            <div class="wd-login-title">
+                Welcome to Join us
+            </div>
+            <form action="/signup" method="post" >
+                <input  name="nextUrl" type="text" value="{{ nextUrl}}" hidden style="display: none !important;">
+                <div class="wd-login-inputWrapper" style="position: relative">
+                    <input class="wd-login-input login-username" name="username" type="text" placeholder="username">
+                    <span class="wd-hint wd-username-exist" style="display: block; font-size: 13px;line-height:20px; height: 20px">
+                        {% if (flash | length ) > 0 %}
+                        {{ flash.message }}
+                        {% endif %}
+                    </span>
+                    <input class="wd-login-input login-password" type="password"  name="password"  placeholder="password">
+                <div class="wd-username-valid">
+                <ul class="wd-popover-list">
+                    <li class="item" data-action="type">
+                        <i class="far fa-check-circle"></i>
+                        <span>只能包含字母、数字、下划线</span>
+                    </li>
+                    <li class="item" data-action="start">
+                        <i class="far fa-check-circle"></i>
+                        <span>只能字母开头</span>
+                    </li>
+                    <li class="item" data-action="end">
+                        <i class="far fa-check-circle"></i>
+                        <span>只能字母或数字结尾</span>
+                    </li>
+                    <li class="item" data-action="min">
+                        <i class="far fa-check-circle"></i>
+                        <span>最小长度3</span>
+                    </li>
+                    <li class="item" data-action="max">
+                        <i class="far fa-check-circle"></i>
+                        <span>最大长度10</span>
+                    </li>
+
+                </ul>
+                </div>
+                <div class="wd-password-valid">
+                    <ul class="wd-popover-list">
+                        <li class="item" data-action="type">
+                            <i class="far fa-check-circle"></i>
+                            <span>只能包含字母、数字、下划线</span>
+                        </li>
+                        <li class="item" data-action="min">
+                            <i class="far fa-check-circle"></i>
+                            <span>最小长度3</span>
+                        </li>
+                        <li class="item" data-action="max">
+                            <i class="far fa-check-circle"></i>
+                            <span>最大长度10</span>
+                        </li>
+
+                    </ul>
+
+                </div>
+            </div>
+            <div class="wd-login-btns">
+                <button class="wd-login-btn wd-alert-confirm prevent" type="submit" >Sign Up</button>
+            </div>
+            </form>
+
+            <div class="wd-login-signup">
+                <span>Already has account? </span>
+                <a href="/signin">Sign in.</a>
             </div>
         </div>
-      
-        <div class="right">
-            <div class="connect">login with</div>
-            <a href="" class="facebook">
-                <i class="fab fa-facebook" aria-hidden="true" ></i>
-                LOGIN WITH FACEBOOK
-            </a>
-            <br />
-            <a href="" class="twitter">
-                <i class="fab fa-twitter" aria-hidden="true" ></i>
-                LOGIN WITH TWITTER
-            </a> <br />
-            <a href="" class="google-plus">
-                <i class="fab fa-google" aria-hidden="true" ></i>
-                LOGIN WITH GOOGLE
-            </a>
-        </div>
-    </form>
-    
-    {% if flash| length > 0 %}
-    {{ flash.message }}
-    {% endif %}
 
+    </div>
 </div>
-<script>
-    
-    let btn = document.querySelector('.submit')
-    btn.addEventListener('click', (event) => {
-        let confirm = document.querySelector('.confirm')
-        let password = document.querySelector('.password')
-        if( confirm.value === password.value) {
-            btn.classList.remove('blur')
-            console.log('ok')
-        } else{
-            event.preventDefault()
-            console.log('wrong')
-            btn.classList.add('blur')
-        }
-        
-    })
-  
-    
-</script>
+
+<script src="/static/js/wd.js"></script>
+<script src="/static/js/todoApi.js"></script>
+<script src="/static/js/signup.js"></script>
+
+
+
+
 </body>
 </html>

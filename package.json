@@ -1,19 +1,17 @@
 {
-  "name": "ReactExpress",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
   "dependencies": {
     "body-parser": "^1.18.2",
     "cookie-session": "^2.0.0-beta.3",
+    "cors": "^2.8.4",
     "crypto": "^1.0.1",
     "express": "^4.16.3",
-    "isomorphic-fetch": "^2.2.1",
-    "mongoose": "^5.0.11",
-    "nodemon": "^1.17.2",
-    "nunjucks": "^3.1.2"
+    "multer": "^1.3.0",
+    "nodemon": "^1.17.3",
+    "nunjucks": "^3.1.2",
+    "socket.io": "^2.1.0"
   },
   "scripts": {
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "start": "pm2 start app.js"
   }
 }

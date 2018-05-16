@@ -1,0 +1,225 @@
+
+#id-music {
+    display: none;
+    position: absolute;
+    top: 0;
+    margin-left: 40px;
+    /*transform: translateY(478px);*/
+}
+
+@media (min-width: 1113px) {
+    #id-music {
+        display: block;
+    }
+
+}
+
+#id-player-audio{
+    position: absolute;
+    z-index: -100;
+}
+
+.music-wrapper{
+    width: 300px;
+    margin: 0px auto 50px;
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.3);
+    padding: 20px 20px 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.song-info{
+    width: 100%;
+    overflow: hidden;
+    background-color: #c0cdd2;
+    color:#393d3f;
+    font-size: 14px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.song-info .song-name{
+    overflow: hidden;
+    width: 100%;
+    text-align: center;
+    font-weight: 550;
+    margin-bottom: 2px;
+    animation-name: songName;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+}
+
+@-webkit-keyframes songName {
+    0% { margin-left:0;}
+    25% {margin-left:-30%;}
+    50% {margin-left:0;}
+    75% { margin-left: 30%;}
+    100% {margin-left:0;}
+}
+
+
+.audio-controller {
+    margin-top: 15px;
+    position: relative;
+    display: flex;
+}
+
+.wd-btn{
+    border: 0;
+    min-width: 51px;
+    padding: 6px;
+    margin: 0 8px;
+    background-color:darkseagreen;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s linear;
+}
+.wd-btn.btn-music-play{
+    background-color: #557055;
+}
+.wd-btn.btn-music-pause{
+    background-color: #80a980;
+}
+
+.wd-btn.btn-music-last:hover,.wd-btn.btn-music-next:hover{
+    background-color: #719f71;
+}
+
+
+.wd-btn:focus{
+    border: 0;
+    outline: 0;
+}
+
+.wd-btn.wd-on{
+    display: none;
+}
+
+.audio-progress {
+    display: flex;
+    align-items: center;
+}
+.audio-progress > span {
+    min-width: 38px;
+    margin: 0 10px;
+    font-size: 14px;
+    color: #5e5e5e;
+}
+
+.music-playlist{
+    margin: 0 auto;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    width: 160px;
+}
+.libarary-title{
+    padding: 10px ;
+    padding-left: 40px;
+    font-weight: 500;
+    color: #5e5e5e;
+}
+.music-song{
+    background-color: #d8e5d8;
+    color: #8d8d8d;
+    font-size: 14px;
+    padding: 6px 16px;
+    transition: all 0.3s ease;
+    border-radius: 1px;
+    cursor: pointer;
+}
+.music-song:hover{
+    background-color: #c0ccc0;
+    color: #fff;
+}
+ul.list-items > li+li{
+    margin-top: 2px;
+}
+.song-active{
+    background-color: #c0ccc0;
+    color: #fff;
+}
+.player-model{
+    position: absolute;
+    left: 61px;
+    bottom: -39px;
+    border: 0;
+    font-size: 12px;
+    min-width: 85px;
+    padding: 6px;
+    text-align: center;
+    background-color:#ebebfb;
+    color: #5c5c64;
+    border-radius: 3px;
+    cursor: pointer;
+    visibility: hidden;
+    z-index: 0;
+    transition: visibility 0.1s ease;
+}
+.player-model:focus{
+    outline: 0;
+    border: 0;
+}
+
+.model-active{
+    visibility: visible;
+    z-index: 1;
+}
+
+  .bar-container {
+      position: relative;
+  }
+
+
+.timeline_wrap {
+    position: relative;
+    transition: top .2s ease-in-out;
+}
+
+
+.line-played {
+    position: absolute;
+    height: 10px;
+    left: 1px;
+    background-color: #719f71;
+    z-index: 2;
+}
+
+.line-preload {
+    position: absolute;
+    height: 10px;
+    background-color: #a6a6a6;
+    z-index: 1;
+}
+
+.line-preload.line-preload-up {
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+.progress-bar-wrapper {
+    width: 200px;
+    height: 10px;
+    cursor: pointer;
+    background-color: #c6c6c6;
+}
+
+
+.progress-bar-pointer {
+    position: absolute;
+    top: 0;
+    right: -5px;
+    width: 10px;
+    height: 10px;
+    -webkit-transition: all .1s ease-in-out;
+    transition: all .1s ease-in-out;
+    border-radius: 50%;
+    background: darkseagreen;
+}

@@ -1,0 +1,321 @@
+<!doctype html>
+<html>
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font: inherit;
+            color:inherit;
+        }
+
+        body{
+            font-size: 14px;
+            font-family: sans-serif;
+            background-color: #fff;
+
+        }
+
+        a{
+            text-decoration: none;
+        }
+
+        img{
+            vertical-align: text-bottom;
+        }
+
+        button{
+            border: 0;
+            outline: 0;
+            font: inherit;
+        }
+
+        button:focus{
+            border: 0;
+            outline: 0;
+        }
+
+
+        .chat-container{
+            background-color: #f2f2f7;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header{
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: rgb(11,171,247);
+            color: #fff;
+        }
+
+        .chat-header button{
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+        .chat-friend{
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .chat-news{
+            margin-right: 38px;
+        }
+        .chat-menu{
+            margin-left: 10px;
+        }
+
+        .chat-body{
+            padding: 10px;
+            flex: 1;
+
+            overflow: auto;
+        }
+
+        .chat-body .content-friend, .chat-body .content-self {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .chat-body .content-self{
+            flex-direction: row-reverse;
+        }
+
+        .chat-body img{
+            width: 25px;
+            height: 25px;
+            border: 1px solid #000;
+            border-radius: 50%;
+        }
+
+        .content-detail{
+            margin: 0 10px;
+            font-size: 16px;
+            padding: 5px;
+            border: 1px solid #000;
+            border-radius: 10%;
+        }
+
+        .chat-body .content-self .content-detail{
+            background-color: rgb(11,151,227);
+            color: #fff;
+        }
+
+        .chat-input-wrapper{
+            padding: 0 6px;
+            margin-bottom: 10px;
+            font-size: 16px;
+            display: flex;
+        }
+
+        .input-chat-content{
+            padding: 3px 10px;
+            flex: 1;
+            border-radius: 5px;
+            border: 0;
+            background-color: #fff;
+        }
+
+        .btn-chat-send{
+            background-color: #006dcc;
+            color: #fff;
+            border-radius: 5px;
+            line-height: 18px;
+            padding: 6px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            border: 0 ;
+            margin-left: 5px;
+            cursor: pointer;
+        }
+
+        .chat-footer{
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding:  10px 0;
+            margin:  0 10px;
+        }
+
+        .chat-footer .footer-item{
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            border: 1px solid #333;
+        }
+
+        .broadcast {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: lightblue;
+            color: #006dcc;
+        }
+
+
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
+</head>
+<body>
+
+<!--<span class="broadcast" >-->
+  <!--ssf-->
+<!--</span>-->
+
+<div class="main">
+    <div class="chat-container">
+    <div class="chat-header">
+        <!--<button class="chat-news">消息</button>-->
+        <span class="chat-friend">
+            <span class="friend-name">测试</span>
+            <span class="friend-device">Iphone在线 - 2G</span>
+        </span>
+        <!--<button class="chat-call">电话</button>-->
+        <!--<button class="chat-menu">好友</button>-->
+    </div>
+
+    <div class="chat-body" data-id="{{user._id}}">
+        <!--<div class="content-friend">-->
+        <!--<img src="./2017032410_dog1.png" alt="" class="friend-avatar">-->
+        <!--<span class="content-detail">内容1</span>-->
+        <!--</div>-->
+        <!--<div class="content-self">-->
+        <!--<img src="./2017032410_dog2.png" alt="" class="self-avatar">-->
+        <!--<span class="content-detail">内容2</span>-->
+        <!--</div>-->
+        <!--<div class="content-friend">-->
+        <!--<img src="./2017032410_dog1.png" alt="" class="friend-avatar">-->
+        <!--<span class="content-detail">内容1</span>-->
+        <!--</div>-->
+        <!--<div class="content-self">-->
+        <!--<img src="./2017032410_dog2.png" alt="" class="self-avatar">-->
+        <!--<span class="content-detail">内容2</span>-->
+        <!--</div>-->
+    </div>
+
+    <div class="chat-input-wrapper">
+        <input type="text" class="input-chat-content">
+        <button  class="btn-chat-send">send</button>
+    </div>
+
+    <div class="chat-footer">
+        <span class="footer-item"></span><span class="footer-item"></span><span class="footer-item"></span><span
+            class="footer-item"></span><span class="footer-item"></span><span class="footer-item"></span><span
+            class="footer-item"></span><span class="footer-item"></span><span class="footer-item"></span>
+    </div>
+</div>
+</div>
+<div class="side"></div>
+
+
+
+<script>
+    const log = console.log.bind(console)
+
+    const post = (val) => {
+        let id =$('.chat-body').attr('data-id')
+        let form = {
+            msg: val,
+            id:id,
+            date: Date.now(),
+        }
+        $.post('http://111.230.7.89/chat/add', form)
+    }
+
+
+    const messageEvent = () => {
+
+        $('.btn-chat-send').on('click', (event) => {
+            let input = $('.input-chat-content')
+            let val = input.val()
+            post(val)
+            input.val('')
+        })
+
+        $('.input-chat-content').on( 'keyup',  (event) => {
+            if (event.key === 'Enter') {
+                let val = event.target.value
+                event.target.value= ''
+                post(val)
+            }
+        })
+
+    }
+
+
+</script>
+
+<script>
+    const socketEvent = () => {
+        let socket = io();
+
+        const templateFriend = (data) => {
+            let t = `
+                <div class="content-friend">
+                <span style="margin: 5px"> ${data.user.username} </span>
+
+                <img src="/user/avatar/${data.user.avatar}" alt="" class="friend-avatar">
+                <span class="content-detail">${data.msg}</span>
+            </div>
+            `
+            return t
+        }
+
+        const templateSelf = (data) => {
+            let t = `
+                <div class="content-self">
+                 <span style="margin: 5px"> ${data.user.username} </span>
+            <img src="/user/avatar/${data.user.avatar}" alt="" class="self-avatar">
+            <span class="content-detail">${data.msg}</span>
+        </div>
+            `
+            return t
+        }
+
+        socket.on('new', function(data){
+            // console.log(data)
+        })
+
+        socket.on('message', function(data){
+            let t
+            let wrapper = $('.chat-body')
+            let id = Number(wrapper.attr('data-id'))
+            if ( id !== data.user._id ) {
+                t = templateFriend(data)
+            } else {
+                t = templateSelf(data)
+            }
+            wrapper.append(t)
+        })
+
+
+
+    }
+</script>
+
+<script>
+
+    const main = () => {
+        messageEvent()
+        socketEvent()
+    }
+
+    main()
+
+
+</script>
+
+</body>
+</html>

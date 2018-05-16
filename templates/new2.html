@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>bbs club</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="/static/lib/editor/editor.css">
+    <link rel="stylesheet" href="/static/lib/webuploader/webuploader.css">
+    <script src="/static/lib/jquery-3.0.0.min.js"></script>
+    <script src="/static/lib/markdownit.js"></script>
+    <script src="/static/lib/webuploader/webuploader.withoutimage.js"></script>
+
+    <script src="/static/lib/editor/editor.js"></script>
+    <script src="/static/lib/editor/ext.js"></script>
+    <link rel="stylesheet" href="/static/css/topic/new.css">
+
+
+
+    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">-->
+
+    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/medium-editor@5.23.3/dist/css/themes/beagle.min.css">-->
+    <!--&lt;!&ndash; Font Awesome for awesome icons. You can redefine icons used in a plugin configuration &ndash;&gt;-->
+    <!--<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">-->
+
+    <!--<script src="/static/lib/medium/jquery.min.js"></script>-->
+
+    <!--<script src="https://cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>-->
+
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <div class="header-logo">
+            <a href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#004D40" height="36" viewBox="0 0 24 24" width="36"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>
+            </a>
+        </div>
+        <div class="header-title">
+            Write Your Topic
+        </div>
+
+        <div class="header-info" style="display: none">
+            <div class="header-avatar">
+                <img src="{{user.avatar}}" alt="" data-action="avatar">
+            </div>
+        </div>
+
+
+    </div>
+</header>
+<div class="main">
+    <section class="main-title">
+        <!--<input type="file" class="title-img">-->
+        <input type="text" class="title-content" name="title" placeholder="Input the Title">
+
+
+        <div class="tag-content">
+            <span class="tag-header">Select A Tag&nbsp;:</span>
+            <div class="tag-list">
+                {% for tag in tags %}
+                <span class="tag-item {{ tag.name }} "> {{ tag.name }}</span>
+                {% endfor %}
+            </div>
+            <div class="tag-hint ">
+                <span>At Least One Tag</span>
+            </div>
+
+        </div>
+
+
+    </section>
+    <section class="main-textarea">
+        <div class="text-container">
+        <textarea class='editor' name='content' rows='30' placeholder='文章支持 Markdown 语法, 请注意标记代码'></textarea>
+        </div>
+    </section>
+    <div class="footer">
+        <button class="wd-topic-btn wd-topic-submit ">Submit</button>
+        <!--<button class="wd-topic-btn wd-topic-save  ">Save</button>-->
+    </div>
+</div>
+<div class="wd-alert-container"></div>
+
+
+
+<script>
+    (function () {
+        var editor = new Editor();
+        editor.render($('.editor')[0]);
+    })();
+</script>
+
+<script src="/static/js/wd.js"></script>
+<script src="/static/js/todoApi.js"></script>
+<script src="/static/js/alertAction.js"></script>
+<script src="/static/js/newTopic.js"></script>
+
+</body>
+</html>

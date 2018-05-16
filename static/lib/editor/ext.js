@@ -97,7 +97,9 @@
                     '</div>',
                 '</div>',
             '</div>'
-        ].join('')).appendTo($body);
+        ].join('')).appendTo( $body );
+
+
 
         this.$upload = this.$win.find('.upload-img').css({
             height: 50,
@@ -118,7 +120,7 @@
         var _csrf = $('[name=_csrf]').val();
 
         this.uploader = WebUploader.create({
-            swf: '/public/libs/webuploader/Uploader.swf',
+            swf: '/static/lib/webuploader/Uploader.swf',
             server: '/upload?_csrf=' + _csrf,
             pick: this.$uploadBtn[0],
             paste: document.body,
@@ -148,7 +150,7 @@
 
         this.uploader.on('uploadSuccess', function(file, res){
             if(res.success){
-                self.$win.modal('hide');
+                self.$win.find('.modal').hide();
                 self.editor.push('!['+ file.name +']('+ res.url +')');
             }
             else{
@@ -214,7 +216,8 @@
 
     ToolImage.prototype.bind = function(editor){
         this.editor = editor;
-        this.$win.modal('show');
+        // this.$win.modal('show');
+        this.$win.find('.modal').show();
     };
 
     var toolImage = new ToolImage();

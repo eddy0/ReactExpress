@@ -48,6 +48,15 @@ const registerRouter = () => {
     const user = require('./routes/user.js')
     app.use('/user', user)
 
+    const todo = require('./routes/todo.js')
+    app.use('/todo', todo)
+
+    const video = require('./routes/video.js')
+    app.use('/video', video)
+
+    const game = require('./routes/game.js')
+    app.use('/game', game)
+
     const apiSign = require('./routes/api/sign.js')
     app.use('/api/', apiSign)
 
@@ -105,21 +114,27 @@ const configIO = (server) => {
         next()
     })
 
-    io.on('connection', function(socket){
+    io.on('connection', function(socket) {
         let clients = Object.keys(io.sockets.sockets)
         console.log(clients.length, " clients are connected");
         console.log(socket.id)
-        socket.on('disconnect', function(){
-            console.log(Object.keys(io.sockets.sockets) + " clients disconnected");
+        socket.emit('total', clients.length)
+        socket.on('disconnect', function() {
+
+            let clients = Object.keys(io.sockets.sockets)
+            console.log(clients.length, " clients disconnected")
             console.log(socket.id)
-            let socketId = socket.id
-            let Chat = require('./models/chat')
-            let u = Chat.findBy('socketId', socketId)
-            log('u', u)
-            if (u !== null) {
-                let id = u.uid
-                socket.broadcast.emit('delete', id)
-            }
+            socket.emit('total', clients.length)
+
+            // let socketId = socket.id
+            // let Chat = require('./models/chat')
+            // let u = Chat.findBy('socketId', socketId)
+            // // log('u', u)
+            // if (u !== null) {
+            //     let id = u.uid
+            //     socket.broadcast.emit('delete', id)
+            // }
+
         })
     })
 

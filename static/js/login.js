@@ -1,155 +1,6 @@
-class Alert {
-    constructor() {
-        this.init()
-        this.container = this.e('.wd-login-container')
-        this.action = undefined
-    }
-
-    on(event){
-        this.action = event
-        return this
-    }
-
-    fire(...args) {
-        if (this.action !== undefined) {
-            this.action.apply(this, args)
-        }
-    }
-
-    e(sel) {
-        return document.querySelector(sel)
-    }
-
-    es(sel){
-        return document.querySelectorAll(sel)
-    }
-
-    bindAll(selector, eventName, callback){
-        const element = this.es(selector)
-        for (let i = 0; i < element.length; i++ ) {
-            let tag = element[i]
-            tag.addEventListener(eventName, (event) => {
-                callback(event)
-            })
-        }
-    }
-
-    has(event) {
-        let self = event.target
-        return self.classList.contains.bind(self.classList)
-    }
-
-    init() {
-        this.initframe()
-    }
-
-    initframe(){
-        const container = this.e('.wd-login-container')
-        if (container !== null){
-            container.remove()
-        }
-        let t = `
-            <div class="wd-login-container alert-show">
-                <div class="wd-login-overlay"></div>
-                <div class="wd-login-box"></div>
-            </div>
-            `
-        document.body.insertAdjacentHTML('beforeend', t)
-    }
-
-    insertHtml(t){
-        let box = this.e('.wd-login-box')
-        box.innerHTML = t
-    }
-}
-
-class AlertNotice extends Alert {
-    constructor(args) {
-        super()
-        this.title = args.title || ''
-        this.notice = args.notice || ''
-        this.appendHtml()
-        this.actionAlert()
-    }
-
-    noticeTemplate() {
-        const t = `
-                <div class="wd-login-box">
-                    <div class="wd-login-title">
-                        ${this.title}
-                    </div>
-                    <div class="wd-login-content">
-                         ${this.notice}
-                    </div>
-                    <div class="wd-login-btns">
-                    <button class="wd-login-btn wd-login-notice">OK</button>
-                     </div>
-                </div>
-            `
-            return t
-        }
-
-    appendHtml() {
-        const t = this.noticeTemplate()
-        this.insertHtml(t)
-    }
-
-    actionAlert(){
-        this.container.addEventListener('click', () => {
-            this.container.classList.toggle('alert-show')
-        })
-    }
-}
-
-class AlertConfirm extends Alert {
-    constructor(args) {
-        super()
-        this.title = args.title || ''
-        this.notice = args.notice || ''
-        this.appendHtml()
-        this.actionAlert()
-    }
-
-    confirmTemplate() {
-        const t = `
-                <div class="wd-login-box">
-                    <div class="wd-login-title">
-                        ${this.title.toUpperCase()}
-                    </div>
-                    <div class="wd-login-content">
-                         ${this.notice}
-                    </div>
-                    <div class="wd-login-btns">
-                    <button class="wd-login-btn wd-alert-confirm">OK</button>
-                    <button class="wd-login-btn wd-login-reject">NO</button>
-                    </div>
-                </div>
-            `
-        return t
-    }
-
-    appendHtml() {
-        const t = this.confirmTemplate()
-        this.insertHtml(t)
-    }
-
-    actionAlert(){
-        this.bindAll('.wd-login-btn', 'click', (event) => {
-            this.container.classList.toggle('alert-show')
-            if (this.has(event, 'wd-alert-confirm')){
-                this.fire(true)
-            } else if (this.has(event,'wd-login-reject')) {
-                this.fire(false)
-            }
-        })
-    }
-}
-
 class AlertLogin extends Alert {
     constructor(args) {
-        super()
-        this.title = args.title || ''
-        this.placeholder = args.placeholder || []
+        super(args)
         this.appendHtml()
         this.actionAlert()
     }
@@ -199,28 +50,31 @@ class AlertLogin extends Alert {
     }
 }
 
-const sucessNotice = () => {
-    let sucess = new AlertNotice({
+const successNotice = () => {
+    AlertNotice.create({
+        wrapperClass: 'notice',
         title: 'Success',
-        notice: 'you have logged in'
+        notice: 'you have logged in',
+        overlayColor: '#D7EFEE',
+        wrapperColor: '#fff',
     })
 }
 
-const faledNotice = () => {
-    let failed = new AlertNotice({
+const failNotice = () => {
+    AlertNotice.create({
         title: 'Failed',
-        notice: 'you have typped wrong username / password'
+        notice: 'wrong username / password<br> pls try again!'
     })
 }
 
-let userTemplate = (data) => {
+const userTemplate = (user) => {
     let t  = `
     <div class="header-avatar">
-                <img src="${data.avatar}" alt="">
-                <div class="header-popover">
+                <img src="/user/avatar/${user.avatar}" alt="" data-action="avatar">
+                <div class="header-popover" tabindex="0">
                         <ul class="wd-popover-list">
                             <li class="item">
-                                <a href="/profile/${data.id}">
+                                <a href="/user/${user._id}">
                                     <svg viewBox="0 0 20 20" width="14" height="16" aria-hidden="true" style="height: 16px; width: 14px;">
                                         <g>
                                             <path d="M13.4170937,10.9231839 C13.0412306,11.5757324 12.5795351,12.204074 12.6542924,12.7864225 C12.9457074,15.059449 18.2164534,14.5560766 19.4340179,15.8344151 C20,16.4286478 20,16.4978969 20,19.9978966 C13.3887136,19.9271077 6.63736785,19.9978966 0,19.9978966 C0.0272309069,16.4978969 0,16.5202878 0.620443914,15.8344151 C1.92305664,14.3944356 7.20116276,15.1185829 7.40016946,12.7013525 C7.44516228,12.1563518 7.02015319,11.5871442 6.63736814,10.9228381 C4.51128441,7.2323256 3.69679769,4.67956187e-11 10,9.32587341e-14 C16.3032023,-4.66091013e-11 15.4216968,7.4429255 13.4170937,10.9231839 Z"></path>
@@ -229,7 +83,17 @@ let userTemplate = (data) => {
                                     <span>Profile</span>
                                 </a>
                             </li>
-                            <li class="item">
+                            <li class="item" >
+                                <a href="/setting">
+                                    <svg viewBox="0 0 20 20"  width="14" height="16" aria-hidden="true" style="height: 16px; width: 14px;"><title></title>
+                                        <g>
+                                            <path d="M18.868 15.185c-.164.096-.315.137-.452.137-.123 0-1.397-.26-1.617-.233-1.355.013-1.782 1.275-1.836 1.74-.055.454 0 .893.19 1.304.138.29.125.577-.067.85-.863.893-2.165 1.016-2.357 1.016-.123 0-.247-.055-.356-.15-.11-.097-.685-1.14-1.07-1.47-1.303-.954-2.246-.328-2.63 0-.397.33-.67.7-.835 1.126-.07.18-.18.302-.33.37-1.354.426-2.918-.92-3.014-1.056-.082-.11-.123-.22-.123-.356-.014-.138.383-1.276.342-1.688-.342-1.9-1.836-1.687-2.096-1.673-.303.014-.604.068-.92.178-.205.056-.396.03-.588-.054-.888-.462-1.137-2.332-1.11-2.51.055-.315.192-.52.438-.604.425-.164.81-.452 1.15-.85.932-1.262.344-2.25 0-2.634-.34-.356-.725-.645-1.15-.81-.137-.04-.233-.15-.328-.315C-.27 6.07.724 4.95.978 4.733c.255-.22.6-.055.723 0 .426.164.878.22 1.344.15C4.7 4.636 4.784 3.14 4.81 2.908c.015-.247-.11-1.29-.136-1.4-.027-.123-.014-.22.027-.315C5.318.178 7.073 0 7.223 0c.178 0 .33.055.44.178.108.124.63 1.11 1 1.4.398.338 1.582.83 2.588.013.398-.273.96-1.288 1.083-1.412.123-.123.26-.178.384-.178 1.56 0 2.33 1.03 2.438 1.22.083.124.096.248.07.37-.03.152-.33 1.153-.262 1.606.366 1.537 1.384 1.742 1.89 1.783.494.027 1.645-.357 1.81-.344.164.014.315.083.424.206.535.31.85 1.715.905 2.14.027.233-.014.44-.11.562-.11.138-1.165.714-1.48 1.112-.855.982-.342 2.25-.068 2.606.26.37 1.22.905 1.288.96.15.137.26.302.315.494.146 1.413-.89 2.387-1.07 2.47zm-8.905-.535c.644 0 1.246-.123 1.822-.356.575-.248 1.082-.59 1.493-1.016.425-.425.754-.92 1-1.495.247-.562.357-1.18.357-1.81 0-.66-.11-1.262-.356-1.825-.248-.562-.577-1.056-1.002-1.48-.41-.427-.918-.756-1.493-1.003-.576-.233-1.178-.357-1.822-.357-.644 0-1.247.124-1.81.357-.56.247-1.067.576-1.478 1.002-.425.425-.768.92-1 1.48-.247.564-.37 1.167-.37 1.826 0 .644.123 1.248.37 1.81.232.563.575 1.07 1 1.495.424.426.917.768 1.48 1.016.56.233 1.164.356 1.808.356z"></path>
+                                        </g>
+                                    </svg>
+                                    <span>Setting</span>
+                                </a>
+                            </li>
+                            <li class="item"  data-action="logOut">
                                 <a href="/logout">
                                     <svg viewBox="0 0 20 20" class="Icon Button-icon Icon--logout" width="14" height="16" aria-hidden="true" style="height: 16px; width: 14px;"><title></title>
                                         <g>
@@ -255,57 +119,76 @@ const renderLoginHtml = (data) => {
     appendHtml(container, t )
 }
 
-let logoutTemplate = () => {
-    const t =
-        `
-        <div class="header-login">
-                <a href="#" class="signIn" data-action="signIn">Sign in</a>
-                <a href="#" class="signUp">Get Started</a>
-            </div>
-        `
-     return t
-}
+// const logoutTemplate = () => {
+//     const t =
+//         `
+//         <div class="header-login">
+//                 <a href="javascript:;" class="signIn" data-action="signIn">Sign in</a>
+//                 <a href="/signup" class="signUp">Get Started</a>
+//             </div>
+//         `
+//      return t
+// }
+//
+// const renderLogoutHtml = () => {
+//     let container = e('.header-info')
+//     container.innerHTML = ''
+//     let t = logoutTemplate()
+//     appendHtml(container, t )
+// }
 
-const renderLogoutHtml = () => {
-    let container = e('.header-info')
-    container.innerHTML = ''
-    let t = logoutTemplate()
-    appendHtml(container, t )
-
+const callbackSignIn = (confirm, value) => {
+    if (confirm){
+        new LoginApi().siginIn(value)
+            .then( (data) => {
+            if (data.success === true){
+                successNotice()
+                renderLoginHtml(data.data)
+            } else{
+                failNotice()
+            }
+        })
+    }
 }
 
 const signInTrigger = () => {
-    let loginFunction = (confirm, value) => {
-        if (confirm){
-            let l = new TodoApi()
-            // let data = signin.post('/login',value)
-            l.post('/login',value).then( (data) => {
-                if (data.success === true){
-                    sucessNotice()
-                    renderLoginHtml(data.data)
-                } else{
-                    faledNotice()
-                }
-            })
-        }
-    }
-
-
-
-    new AlertLogin({
+    AlertInput.create({
         title: 'Welcome Back',
-        placeholder: [
-                        'username',
-                        'password',
-                    ]
-    }).on(loginFunction)
+        input: [ {
+            name: 'username',
+            placeholder: 'username',
+            type: 'text',
+        },
+            {
+                name: 'password',
+                placeholder: 'password',
+                type: 'password',
+            },
+        ]
+    }).on(callbackSignIn)
+}
+
+const signinRequest = () => {
+    AlertInput.create({
+        title: 'Please Sign in',
+        input: [ {
+            name: 'username',
+            placeholder: 'username',
+            type: 'text',
+        },
+            {
+                name: 'password',
+                placeholder: 'password',
+                type: 'password',
+            },
+        ]
+    }).on(callbackSignIn)
 }
 
 const signOutTrigger = () => {
     log('in')
     renderLogoutHtml()
-    let l = new TodoApi()
-    // let data = signin.post('/login',value)
+    // new AJax().post('/logout')
     // l.get('/logout').then( (data) => {
     //     console.log('data', data)
     // })
@@ -313,21 +196,18 @@ const signOutTrigger = () => {
 
 const ToggleUserInfo = () => {
     let wrapper = e('.header-info')
-    log('wrapper', wrapper)
     const popover = e('.header-popover', wrapper)
     popover.classList.add('show-user')
+    log('popover', popover)
     popover.focus()
-
-
     popover.addEventListener('focusout', (event) => {
         setTimeout( () => {
-            // log('blur')
             popover.classList.remove('show-user')
         }, 150)
     })
 }
 
-const actionFromList = (self) => {
+const actionFromPopover = (self) => {
     const item = self.closest('.item')
     if (item !== null){
         let action = item.dataset.action
@@ -335,7 +215,7 @@ const actionFromList = (self) => {
     }
 }
 
-const loginMain = () => {
+const loginEvent = () => {
     const container = e('.header-info')
     let actions = {
         'avatar': ToggleUserInfo,
@@ -346,15 +226,14 @@ const loginMain = () => {
     container.addEventListener('click', (event) => {
         const self = event.target
         let action = self.dataset.action
+        log('action',action)
         if (action === undefined){
-            action = actionFromList(self)
+            action = actionFromPopover(self)
         }
-        log('click', self, action)
-
         if (action in actions){
             actions[action](self)
         }
     })
 }
 
-loginMain()
+loginEvent()
