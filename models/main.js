@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const url = 'mongodb://localhost:27017/react'
+const url = 'mongodb://localhost:27017/react_express'
 mongoose.Promise = global.Promise
 mongoose.connect(url)
 
@@ -27,7 +27,6 @@ class Model extends mongoose.Model{
     }
 
     static async create(form, args={}){
-        const kwargs = Object.assign({__deleted: false}, args)
         let m = await super.create(form)
         Object.keys(args).forEach( k => m[k] = args[k] )
         m.save()
@@ -35,15 +34,10 @@ class Model extends mongoose.Model{
     }
 
     static async remove(id){
-        let query = await this.get(id)
-        let form = {
-            __deleted: true
+        let query = {
+            _id: id,
         }
-        if (query !== null) {
-            return super.update(query, form).exec()
-        } else {
-            return null
-        }
+        return super.deleteOne(query).exec()
     }
 }
 

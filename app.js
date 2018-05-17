@@ -42,32 +42,34 @@ const registerRouter = () => {
     const index = require('./routes/index.js')
     app.use('/', index)
 
-    const profile = require('./routes/profile.js')
-    app.use('/setting', profile)
-
-    const user = require('./routes/user.js')
-    app.use('/user', user)
-
-    const todo = require('./routes/todo.js')
-    app.use('/todo', todo)
-
-    const video = require('./routes/video.js')
-    app.use('/video', video)
-
-    const game = require('./routes/game.js')
-    app.use('/game', game)
-
     const apiSign = require('./routes/api/sign.js')
     app.use('/api/', apiSign)
 
+    // const profile = require('./routes/profile.js')
+    // app.use('/setting', profile)
+
+    const user = require('./routes/user.js')
+    app.use('/user', user)
+    //
+    // const todo = require('./routes/todo.js')
+    // app.use('/todo', todo)
+    //
+    // const video = require('./routes/video.js')
+    // app.use('/video', video)
+    //
+    // const game = require('./routes/game.js')
+    // app.use('/game', game)
+    //
+
+
     const apiTopic = require('./routes/apiTopic.js')
     app.use('/api/topic/', apiTopic)
-
+    //
     const apiComment = require('./routes/apiComment.js')
     app.use('/api/comment/', apiComment)
-
-    const apiUser = require('./routes/apiUser.js')
-    app.use('/api/user/', apiUser)
+    //
+    // const apiUser = require('./routes/apiUser.js')
+    // app.use('/api/user/', apiUser)
 }
 
 const configApp = () => {

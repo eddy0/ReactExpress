@@ -2,22 +2,23 @@ const { log } = require('../utils.js')
 const User = require('../models/user.js')
 
 
-
-const currentUser = (request) => {
+const currentUser = async (request) => {
     let uid = request.session.uid
-    let u = User.get(uid)
-    if (u !== null){
-        return u
+    if (uid === undefined) {
+        return User.guest()
     } else {
-        u = User.guest()
-        return u
+        let u = await User.get(uid)
+        if (u === null) {
+            return User.guest()
+        } else {
+            return u
+        }
     }
 }
 
-
-const ajaxloginRequired = (req, res, next) => {
-    const u = currentUser(req)
-    if (u._id === -1) {
+const ajaxloginRequired = async (req, res, next) => {
+    const u = await currentUser(req)
+    if (u._id === 0) {
        let args = {
            success: false,
            message: 'please login in',
@@ -29,9 +30,9 @@ const ajaxloginRequired = (req, res, next) => {
     }
 }
 
-const loginRequired = (req, res, next) => {
-    const u = currentUser(req)
-    if (u._id === -1){
+const loginRequired = async (req, res, next) => {
+    const u = await currentUser(req)
+    if (u.role === -1){
         let baseUrl = '/signin'
         if (req.method === 'POST'){
             res.redirect(baseUrl)

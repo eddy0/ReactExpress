@@ -108,12 +108,12 @@ const actionsSubmit = (element, data) => {
         let api = new TopicApi()
         api.add(data).then( (r) => {
             if (r.success === true) {
-                log('success')
+                log('success', r)
                 new AlertNotice({
                     title:'success',
                     notice: 'add successfully'
                 }).on( () => {
-                    window.location.href='http://111.230.7.89'
+                    window.location.href= r.data.next
                 })
             } else {
                 log('fail')

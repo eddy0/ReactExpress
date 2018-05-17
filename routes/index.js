@@ -8,27 +8,12 @@ const { currentUser, loginRequired } = require('./main.js')
 
 const router = express.Router()
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     log('client ip', req.headers['x-forwarded-for'] )
-    let u = currentUser(req)
-    let topics = Topic.all()
-    topics = topics.map( (topic) => {
-        let author = User.get(topic.uid)
-        topic.author = author
-        topic.star_status = ''
-        topic.mark_status = ''
-        if (topic.marked.includes(u._id)) {
-            topic.mark_status = 'marked'
-        }
-
-        if (topic.starred.includes(u._id)) {
-            topic.star_status = 'starred'
-        }
-
-        return topic
-    })
-    let tags = Tag.all()
-    args = {
+    let u = await currentUser(req)
+    let tags = await Tag.all()
+    let topics = await Topic.topicByUser(u)
+    let args = {
         topics: topics.sort(sortBy('createdTime')),
         tags: tags,
         user: u
@@ -36,28 +21,15 @@ router.get('/', (req, res) => {
     res.render('index.html', args)
 })
 
-router.get('/topic/tag/:tag', (req, res) => {
+router.get('/topic/tag/:tag', async (req, res) => {
     let tag = req.params.tag
-    let u = currentUser(req)
-    let topics = Topic.all()
-    topics = topics.filter( (topic) => {
+    let u = await currentUser(req)
+    let tags = await Tag.all()
+    topics =  await Topic.all().filter( (topic) => {
         let tags = topic.tags
         return tags.includes(tag)
     })
-    topics = topics.map( (topic) => {
-        let author = User.get(topic.uid)
-        topic.author = author
-        topic.star_status = ''
-        topic.mark_status = ''
-        if (topic.marked.includes(u._id)) {
-            topic.mark_status = 'marked'
-        }
-        if (topic.starred.includes(u._id)) {
-            topic.star_status = 'starred'
-        }
-        return topic
-    })
-    let tags = Tag.all()
+    topics = await Topic.topicByUser(u, topics)
     args = {
         topics: topics.sort(sortBy('createdTime')),
         tags: tags,
@@ -66,38 +38,25 @@ router.get('/topic/tag/:tag', (req, res) => {
     res.render('index.html', args)
 })
 
-router.get('/topic/new', loginRequired, (req, res) => {
-    let tags = Tag.all()
+router.get('/topic/new', loginRequired, async (req, res) => {
+    let tags = await Tag.all()
     let args = {
         tags: tags,
     }
     res.render('new.html', args)
 })
 
-router.get('/topic/:id',  loginRequired, (req, res) => {
-    let id = Number(req.params.id)
-    let u = currentUser(req)
-    let tags = Tag.all()
-    let topic = Topic.detail(u, id)
-    let comments = Comment.all()
-    comments = comments.filter( (comment) =>{
-        return comment.topicId === id
-    })
-    comments.forEach( (comment) => {
-        comment.user = User.get(comment.uid)
-        comment.replyToAuthor = comment.replyTo()
-    })
+router.get('/topic/:id',  loginRequired, async (req, res) => {
+    let id = req.params.id
+    let u = await currentUser(req)
+    let topic = await Topic.detail(u, id)
 
-    let author = User.get(topic.uid)
-    topic.star_status = ''
-    topic.mark_status = ''
-    if (topic.marked.includes(u._id)) {
-        topic.mark_status = 'marked'
-    }
-    if (topic.starred.includes(u._id)) {
-        topic.star_status = 'starred'
-    }
     if (topic !== null){
+        let tags = await Tag.all()
+        let author =  await topic.user()
+        let comments = await Comment.commentByTopic(id)
+
+
         let args = {
             topic: topic,
             tags: tags,
@@ -118,11 +77,10 @@ router.get('/signup', (req, res) => {
     })
 })
 
-router.post('/signup', (req, res) => {
+router.post('/signup',  async (req, res) => {
     let form = req.body
     log('form', form)
-    let u = User.register(form)
-    log('u', u)
+    let u = await User.register(form)
     if (u !== null) {
         let nextUrl = form.nextUrl || '/'
         req.session.uid = u._id
@@ -143,12 +101,11 @@ router.get('/signin', (req, res) => {
     res.render('signin.html', args )
 })
 
-router.post('/signin', (req, res) => {
+router.post('/signin', async (req, res) => {
     let form = req.body
-    log('form', form)
-    let valid = User.validLogin(form)
+    let valid = await User.validLogin(form)
     if (valid) {
-        let u = User.findBy('username', form.username)
+        let u = await User.findBy('username', form.username)
         req.session.uid = u._id
         let nextUrl = form.nextUrl || '/'
         res.status(200).redirect(nextUrl)
@@ -165,10 +122,6 @@ router.get('/logout', (req, res) => {
     req.session = null
     res.redirect('/')
 })
-
-
-
-
 
 
 

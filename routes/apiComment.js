@@ -4,23 +4,18 @@ const express = require('express')
 const Topic = require('../models/topic.js')
 const User = require('../models/user.js')
 const Comment = require('../models/comment.js')
-const { currentUser, loginRequired, ajaxloginRequired
-} = require('./main.js')
+const { currentUser, ajaxloginRequired } = require('./main.js')
 
 const router = express.Router()
 
 
-router.post('/reply', (req, res) => {
+router.post('/reply', async (req, res) => {
     let form = req.body
-    let u = currentUser(req)
-    form.topicId = Number(form.topicId)
+    let u = await currentUser(req)
     form.uid = u._id
-    let comment = Comment.create(form)
-    comment.isAuthor = comment.isAuthor()
-    comment.replyToAuthor = comment.replyTo()
+    let comment = await Comment._formattedComment(form)
     comment.user = u
     comment.createdTime = formattedTime(comment.createdTime)
-    Topic.comment(u._id, form.topicId)
     let args = {
         success: true,
         message: '',
@@ -29,22 +24,23 @@ router.post('/reply', (req, res) => {
     res.json(args)
 })
 
-router.post('/add', (req, res) => {
+router.post('/add',  ajaxloginRequired, async (req, res) => {
+    let u = await currentUser(req)
     let url = req.headers.referer.split('?')[0]
-    let topicId = Number(url.split('/').slice(-1)[0])
+    let topicId = url.split('/').slice(-1)[0]
     let form = req.body
-    let u = currentUser(req)
     form.topicId = topicId
     form.uid = u._id
-    let comment = Comment.create(form)
-    comment.isAuthor = comment.isAuthor()
-    comment.user = u
-    comment.createdTime = formattedTime(comment.createdTime)
-    Topic.comment(u._id, topicId)
+    let comment = await Comment._formattedComment(form)
+    let data = {
+        ...comment,
+        user: u,
+        createdTime:formattedTime(comment.createdTime)
+    }
     let args = {
         success: true,
         message: '',
-        data: comment,
+        data: data,
     }
     res.json(args)
 })

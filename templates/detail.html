@@ -89,7 +89,7 @@
 <div class="content-action">
     <div class="action-star  {{ topic.star_status }}">
         <div class="star-count">
-            {{topic.stars}}
+            {{topic.stars | length}}
         </div>
         <i class='fas fa-star icon-font icon-star'></i>
     </div>
@@ -172,7 +172,6 @@
         </div>
 
         <div class="comment-list">
-
             {% for comment in comments %}
 
             <div class="comment-item" data-id="{{comment._id}}">
@@ -180,9 +179,8 @@
                         <span class="comment-author">
                             <a href="/user/{{comment.uid}}" class="comment-author-self">
 
-
                                 {{comment.user.nickname}}
-                                {% if comment.user._id === topic.uid %}
+                                {% if comment.isAuthor %}
                                 (author)
                                 {% endif %}
                             </a>
@@ -192,7 +190,7 @@
 
                             <a href="/user/{{comment.replyToAuthor._id}}" class="comment-reply-to">
                                {{comment.replyToAuthor.nickname}}
-                                {% if comment.replyToAuthor._id === topic.uid %}
+                               {% if comment.isAuthor %}
                                 (author)
                                 {% endif %}
                             </a>

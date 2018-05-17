@@ -275,14 +275,14 @@
                     <i class='fas fa-star icon-font icon-star'></i>
 
                     <span class="star-count">
-                        {{t.stars}}&nbsp;Stars
+                        {{t.stars | length}}&nbsp;Stars
                     </span>
                 </span>
 
                     <span class="action-comments">
                         <a href="/topic/{{t._id}}?content=comment">
                     <i class='fas fa-comments icon-font icon-comments'></i>
-                    <span class="comments-count">{{t.comments}}&nbsp;Comments</span>
+                    <span class="comments-count">{{t.comments }}&nbsp;Comments</span>
                             </a>
                     </span>
 

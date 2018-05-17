@@ -4,12 +4,12 @@ const User = require('../../models/user.js')
 
 const router = express.Router()
 
-router.post('/signin', (req, res) => {
+router.post('/signin', async (req, res) => {
     const form = req.body
-    let valid = User.validLogin(form)
+    let valid = await User.validLogin(form)
     let args
     if (valid) {
-        let u = User.findBy('username', form.username)
+        let u = await User.findBy('username', form.username)
         req.session.uid = u._id
         args = {
             success: true,
@@ -43,9 +43,9 @@ router.post('/signup', (req, res) => {
     res.render('signup.html')
 })
 
-router.post('/signup/valid', (req, res) => {
+router.post('/signup/valid', async (req, res) => {
     let form = req.body
-    let valid = User.findBy('username', form.username) === null
+    let valid = await User.findBy('username', form.username) === null
     let args = {
         success: true,
         message: 'you can use this username',

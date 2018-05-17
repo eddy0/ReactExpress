@@ -24,6 +24,7 @@
                         <span class="tab-selector">选择版块：</span>
                         <select name="tag" id="tag" required>
                             <option value="">请选择</option>
+                            tags: {{tags}}
                             {% for tag in tags %}
                             <option value="{{ tag.tagName }}">{{ tag.tagName }}</option>
                             {% endfor %}

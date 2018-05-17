@@ -4,10 +4,19 @@ const crypto = require('crypto')
 const Schema = mongoose.Schema
 const userSchema = new Schema({
     username: String,
+    nickname: {
+        type: String,
+    },
     password: String,
+    email: String,
     note: {
         type: String,
-        default: 'nothing is possible',
+        default: 'nothing is writing',
+    },
+    avatar: {
+        type: String,
+        default: 'default.png',
+
     },
     role: {
         type: Number,
@@ -25,16 +34,15 @@ const userSchema = new Schema({
         type: Number,
         default: Date.now(),
     },
-    __deleted: {
-        type: Boolean,
-        default: false,
-    }
+    introduction: String,
+
 
 })
 
 
 class UserStore extends Model{
     static async create(form) {
+        form.nickname = form.nickname || form.username
         form.password = this.saltedPassword(form.password)
         const u = await super.create(form)
         return u
@@ -56,9 +64,7 @@ class UserStore extends Model{
 
     static async register(form) {
         const {username, password} = form
-        console.log('username', username)
-        console.log('password', password)
-        const validForm = username.length > 2 && password.length > 2
+        const validForm = username.length >= 3 && password.length >= 3
         const uniqueUser = await super.findBy('username', username) === null
         if (uniqueUser && validForm) {
             const u = await this.create(form)
@@ -73,36 +79,20 @@ class UserStore extends Model{
     }
 
     static guest() {
-        const form = {
+        const o = {
             _id: 0,
             username: 'guest',
             role: -1,
             note: 'this is a guest'
         }
-        const u = new User(form)
+        const u = new User(o)
         return u
     }
-
 }
 
 userSchema.loadClass(UserStore)
 const User = mongoose.model('User', userSchema)
 
-const test = async () => {
-    const form = {
-        username: 'eddy',
-        password: '123',
-        note: 'test',
-    }
-    const query = {
-        username: 'ook',
-    }
-    // const u = await User.create(form)
-    // const all = await User.validLogin(form)
-    const remove = await User.deleteOne(query).exec()
-    console.log(remove)
-}
 
-// test()
 module.exports = User
 

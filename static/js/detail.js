@@ -1,7 +1,7 @@
 
 const starUpdate = (wrapper) => {
     let box = e('.content-box')
-    let id = Number(box.dataset.id)
+    let id = box.dataset.id
     let status = false
     if (wrapper.classList.contains('starred')) {
         status = false
@@ -20,7 +20,7 @@ const starUpdate = (wrapper) => {
 
 const markUpdate = (wrapper) => {
     let box = e('.content-box')
-    let id = Number(box.dataset.id)
+    let id = box.dataset.id
     let status = false
     if (wrapper.classList.contains('marked')) {
         status = false
@@ -55,14 +55,13 @@ const renderReplyTemplate = (data) => {
         author = `(author)`
     }
     let replyto = ''
-    let authorId = Number($('.author-avatar').attr('href').split('/').slice(-1)[0])
+    let authorId = $('.author-avatar').attr('href').split('/').slice(-1)[0]
     let replyToAuthor = data.replyToAuthor
     if (replyToAuthor !== null && replyToAuthor._id === authorId) {
         replyto = `(author)`
     }
-        
     let t = `
-    <div class="comment-item" data-id="{{comment._id}}">
+    <div class="comment-item" data-id="${data._id}">
                 <div class="comment-feed">
                         <span class="comment-author">
                             <a href="/user/${data.user._id}" class="comment-author-self">
@@ -98,7 +97,7 @@ const renderReplyTemplate = (data) => {
                 </div>
 
                 <div class="comment-reply-wrapper clear-fix">
-                    <section class="input-comment-reply" contenteditable="true" tabindex="1" data-topic="{{topic._id}}">
+                    <section class="input-comment-reply" contenteditable="true" tabindex="1" data-topic="${data._id}">
                     </section>
                     <div class="wd-comment-btn wd-reply-cancel ">
                         cancel
@@ -130,13 +129,15 @@ const replySubmit = (wrapper) => {
         if (button.classList.contains('reply')) {
             let text = input.innerHTML
             let item = input.closest('.comment-item')
-            let id = Number(item.dataset.id)
-            let topicId = Number(input.dataset.topic)
+            let id = item.dataset.id
+            let topicId = input.dataset.topic
             let data = {
                 content: text,
                 replyToId: id,
                 topicId: topicId,
             }
+            log(data)
+
             new CommentApi().reply(data)
                 .then( (data) => {
                     if (data.success) {
@@ -205,7 +206,6 @@ const generalCommentTemplate = (data) => {
     if (data.isAuthor) {
         author = `(author)`
     }
-    log(data)
     let t = `
        <div class="comment-item" data-id="${data._id}">
                 <div class="comment-feed">
