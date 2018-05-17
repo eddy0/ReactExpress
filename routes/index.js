@@ -25,7 +25,8 @@ router.get('/topic/tag/:tag', async (req, res) => {
     let tag = req.params.tag
     let u = await currentUser(req)
     let tags = await Tag.all()
-    topics =  await Topic.all().filter( (topic) => {
+    topics =  await Topic.all()
+    topics = topics.filter( (topic) => {
         let tags = topic.tags
         return tags.includes(tag)
     })

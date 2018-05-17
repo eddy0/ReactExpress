@@ -47,10 +47,8 @@ const TopicSchema = new Schema({
 class TopicStore extends Model{
     static async create(form) {
         const len = random()
-        const { content } = form
-        form.brief = content.length > 60 ?
-            `${content.slice(0, len)}...`
-            : content
+        let { brief } = form
+        form.brief = brief.split('\n').join(' ')
         const m = await super.create(form)
         return m
     }
@@ -77,44 +75,33 @@ class TopicStore extends Model{
         return u
     }
 
-
-
     static async _formattedTopic(u, topic) {
         const User = require('./user')
         let author = await User.get(topic.uid)
+        topic = {...topic._doc}
         topic.author = author
         topic.star_status = ''
         topic.mark_status = ''
-        if (topic.marks.includes(u._id)) {
-            topic.toObject({
-                mark_status : 'marked'
-            })
+        if (topic.marks.includes(u._id.toString())) {
             topic.mark_status = 'marked'
-
         }
-
-        if (topic.stars.includes(JSON.stringify(u._id))) {
-            topic.toObject({
-                star_status : 'starred'
-            })
+        if (topic.stars.includes(u._id.toString())) {
             topic.star_status = 'starred'
         }
-        log('tttttt',topic.marks, topic.mark_status,u._id, topic.stars.includes(u._id))
         return topic
     }
 
     static async detail(u, id) {
         let t = await this.get(id).catch(() => null)
         if (t !== null) {
-            if (JSON.stringify(t.uid) !== JSON.stringify(u._id) ) {
+            if (t.uid !== u._id.toString() ) {
                 t.views += 1
                 t.save()
-                t = await this._formattedTopic(u,t)
             }
+            t = await this._formattedTopic(u,t)
         }
         return t
     }
-
 
     static async topicByUser(u, topics) {
         topics = topics ||  await this.all()
@@ -133,7 +120,7 @@ class TopicStore extends Model{
         if (index > -1) {
             this[action].splice(index, 1)
         } else {
-            this[action].push(u._id)
+            this[action].push(u._id.toString())
         }
         this.save()
         return this

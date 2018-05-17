@@ -18,7 +18,7 @@ const currentUser = async (request) => {
 
 const ajaxloginRequired = async (req, res, next) => {
     const u = await currentUser(req)
-    if (u._id === 0) {
+    if (u.role === -1) {
        let args = {
            success: false,
            message: 'please login in',

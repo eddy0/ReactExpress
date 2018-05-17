@@ -10,6 +10,7 @@ class Model extends mongoose.Model{
 
     static async get(id){
         return super.findById(id)
+
     }
 
     static async findBy(key, value){
