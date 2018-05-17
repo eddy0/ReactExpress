@@ -5,24 +5,14 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title> a new html</title>
-    <!--<link rel="stylesheet" href="../static/css/index/html.css">-->
-    <!--<link rel="stylesheet" href="../static/css/index/slide.css">-->
-    <!--<link rel="stylesheet" href="../static/css/index/card.css">-->
-    <!--<link rel="stylesheet" href="../static/css/index/popover.css">-->
-    <!--<script src="../static/lib/fontawesome-all.min.js"></script>-->
-
-
+    <title>profile page</title>
     <link rel="stylesheet" href="/static/css/user/profile.css">
     <link rel="stylesheet" href="/static/css/index/popover.css">
     <link rel="stylesheet" href="/static/css/components/music.css">
-
     <script src="/static/lib/fontawesome-all.min.js"></script>
     <script src="/static/lib/jquery-3.3.1.min.js"></script>
 </head>
 <body>
-
-
 <header>
     <div class="header-container">
         <div class="header-logo">
@@ -33,8 +23,8 @@
         <div class="header-info">
         <div class="header-avatar">
         <img src="/user/avatar/{{user.avatar}}" alt="" data-action="avatar">
-        <div class="header-popover" tabindex="0" >
-        <ul class="wd-popover-list">
+        <div class="header-popover" tabindex="0" style="z-index: 100">
+        <ul class="wd-popover-list" >
         <li class="item" data-action="profile">
         <a href="/user/{{ user._id }}">
         <svg viewBox="0 0 20 20" width="14" height="16" aria-hidden="true" style="height: 16px; width: 14px;">

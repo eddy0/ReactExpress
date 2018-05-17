@@ -19,29 +19,6 @@ const { sortBy } = require('../utils.js')
 
 const router = express.Router({mergeParams: true})
 
-const uploadFilter = (req, res, next) => {
-    let file = upload.single('avatar')
-    let args
-    file(req, res, (error) => {
-        if (error) {
-            console.log('error',error)
-            args = {
-                message: 'the file was too big',
-                success: false,
-                data: [],
-            }
-        } else {
-            const avatar = req.file
-            args = {
-                message: '',
-                success: true,
-                data: avatar.filename,
-            }
-        }
-        res.json(args)
-    })
-}
-
 router.post('/upload/avatar', loginRequired,  (req, res) => {
     let uploadFilter = upload.single('avatar')
     let args
@@ -72,10 +49,9 @@ router.post('/upload/avatar', loginRequired,  (req, res) => {
     })
 })
 
-router.post('/setting', loginRequired,  (req, res) => {
+router.post('/setting', loginRequired,  async (req, res) => {
     let form = req.body
-    log(req.body)
-    let u = currentUser(req)
+    let u = await currentUser(req)
     u = Object.assign(u, form)
     u.save()
     let args = {
@@ -86,18 +62,12 @@ router.post('/setting', loginRequired,  (req, res) => {
     res.json(args)
 })
 
-router.get('/:uid/topic', loginRequired, (req, res) => {
-    let id = Number(req.params.uid)
-    let user = User.get(id)
-    log('user',req.params.uid, id, user)
+router.get('/:uid/topic', loginRequired, async (req, res) => {
+    let id = req.params.uid
+    let user = await User.publicInfo(id)
     if (user !== null) {
-        let topics = Topic.all()
-        topics = topics.filter( (topic) => {
-            return topic.uid === user._id
-        })
-        topics.forEach( (topic) => {
-            topic.createdTime = calendarDate(topic.createdTime)
-        })
+        let topics = await Topic.allList(user._id.toString())
+        user.createdTime = calendarDate(user.createdTime)
         let args = {
             success: true,
             message: '',
@@ -114,20 +84,12 @@ router.get('/:uid/topic', loginRequired, (req, res) => {
     }
 })
 
-router.get('/:uid/comment', loginRequired, (req, res) => {
-    let u = currentUser(req)
-    let id = Number(req.params.uid)
-    let user = User.get(id)
+router.get('/:uid/comment', loginRequired, async (req, res) => {
+    let id = req.params.uid
+    let user = await User.publicInfo(id)
     if (user !== null) {
-        let comments = Comment.all()
-        comments = comments.filter( (comment) => {
-            return comment.uid === user._id
-        })
-        comments.forEach( (comment) => {
-            comment.author = User.get(comment.uid)
-            comment.topic = Topic.get(comment.topicId)
-            // comment.createdTime = calendarDate(comment.createdTime)
-        })
+        user.createdTime = calendarDate(user.createdTime)
+        let comments = await Comment.allList(user._id)
         let args = {
             success: true,
             message: '',
@@ -144,18 +106,13 @@ router.get('/:uid/comment', loginRequired, (req, res) => {
     }
 })
 
-router.get('/:uid/bookmark', loginRequired, (req, res) => {
-    let id = Number(req.params.uid)
-    let user = User.get(id)
+router.get('/:uid/bookmark', loginRequired, async (req, res) => {
+    let u = await currentUser(req)
+    let id = req.params.uid
+    let user = await User.publicInfo(id)
     if (user !== null) {
-        let topics = Topic.all()
-        topics = topics.filter( (topic) => {
-            return topic.marked.includes(user._id)
-        })
-        topics.forEach( (topic) => {
-            topic.createdTime = calendarDate(topic.createdTime)
-        })
-
+        user.createdTime = calendarDate(user.createdTime)
+        let topics = await Topic.topicByActions(user._id.toString(), 'marks')
         let args = {
             success: true,
             message: '',
@@ -172,18 +129,13 @@ router.get('/:uid/bookmark', loginRequired, (req, res) => {
     }
 })
 
-router.get('/:uid/star', loginRequired, (req, res) => {
-    let id = Number(req.params.uid)
-    let user = User.get(id)
+router.get('/:uid/star', loginRequired,  async (req, res) => {
+    let u = await currentUser(req)
+    let id = req.params.uid
+    let user = await User.publicInfo(id)
     if (user !== null) {
-        let topics = Topic.all()
-        topics = topics.filter( (topic) => {
-            return topic.starred.includes(user._id)
-        })
-        topics.forEach( (topic) => {
-            topic.createdTime = calendarDate(topic.createdTime)
-        })
-
+        user.createdTime = calendarDate(user.createdTime)
+        let topics = await Topic.topicByActions(user._id.toString(), 'stars')
         let args = {
             success: true,
             message: '',

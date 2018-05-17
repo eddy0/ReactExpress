@@ -19,13 +19,13 @@ TagSchema.loadClass(TagStore)
 const Tag = mongoose.model('Tag', TagSchema)
 
 
-// const test = () => {
-//     let form = {
-//         name: 'back-end'
-//     }
-//     Tag.create(form)
-// }
-//
+const test = () => {
+    let form = {
+        name: 'algorithm'
+    }
+    Tag.create(form)
+}
+
 // test()
 
 module.exports = Tag

@@ -4,9 +4,11 @@ const express = require('express')
 const http = require('http')
 const socket = require('socket.io')
 const bodyParser = require('body-parser')
-const session = require('cookie-session')
+const session = require('express-session')
 const nunjucks = require('nunjucks')
 const path = require('path')
+const RedisStore = require('connect-redis')(session)
+
 
 const app = express()
 
@@ -45,35 +47,32 @@ const registerRouter = () => {
     const apiSign = require('./routes/api/sign.js')
     app.use('/api/', apiSign)
 
-    // const profile = require('./routes/profile.js')
-    // app.use('/setting', profile)
+    const profile = require('./routes/profile.js')
+    app.use('/setting', profile)
 
     const user = require('./routes/user.js')
     app.use('/user', user)
-    //
-    // const todo = require('./routes/todo.js')
-    // app.use('/todo', todo)
-    //
-    // const video = require('./routes/video.js')
-    // app.use('/video', video)
-    //
-    // const game = require('./routes/game.js')
-    // app.use('/game', game)
-    //
 
+    const todo = require('./routes/todo.js')
+    app.use('/todo', todo)
+
+    const video = require('./routes/video.js')
+    app.use('/video', video)
+
+    const game = require('./routes/game.js')
+    app.use('/game', game)
 
     const apiTopic = require('./routes/apiTopic.js')
     app.use('/api/topic/', apiTopic)
-    //
+
     const apiComment = require('./routes/apiComment.js')
     app.use('/api/comment/', apiComment)
     //
-    // const apiUser = require('./routes/apiUser.js')
-    // app.use('/api/user/', apiUser)
+    const apiUser = require('./routes/apiUser.js')
+    app.use('/api/user/', apiUser)
 }
 
 const configApp = () => {
-
     app.use(bodyParser.urlencoded({
         extended: true
     }))
@@ -82,6 +81,9 @@ const configApp = () => {
 
     app.use(session({
         secret: 'key',
+        store: new RedisStore(),
+        resave: false,
+        saveUninitialized: false,
         }
     ))
 
@@ -94,7 +96,6 @@ const configApp = () => {
     app.use('/static', express.static(path.join(__dirname, 'static')))
 
     configTemplate()
-
 
     registerRouter()
 }

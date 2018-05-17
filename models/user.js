@@ -1,3 +1,4 @@
+const { log } = require('../utils.js')
 const {mongoose, Model} = require('./main')
 const crypto = require('crypto')
 
@@ -35,8 +36,6 @@ const userSchema = new Schema({
         default: Date.now(),
     },
     introduction: String,
-
-
 })
 
 
@@ -46,6 +45,29 @@ class UserStore extends Model{
         form.password = this.saltedPassword(form.password)
         const u = await super.create(form)
         return u
+    }
+
+    static async publicInfo(id) {
+        let user = await User.get(id)
+        if (user === null) {
+            return user
+        } else {
+            let authedKey = [
+                '_id',
+                'username',
+                'nickname',
+                'score',
+                'createdTime',
+                'note',
+            ]
+            let u = {}
+            for (let key in user ) {
+                if (authedKey.includes(key)) {
+                    u[key] = user[key]
+                }
+            }
+            return u
+        }
     }
 
     static saltedPassword(password, salt='123') {

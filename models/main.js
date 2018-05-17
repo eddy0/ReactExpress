@@ -9,7 +9,7 @@ class Model extends mongoose.Model{
     }
 
     static async get(id){
-        return super.findById(id)
+        return super.findById(id).catch(() => null)
 
     }
 

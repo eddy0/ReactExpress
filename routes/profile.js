@@ -7,12 +7,9 @@ const { currentUser, loginRequired } = require('./main.js')
 
 const router = express.Router()
 
-router.get('/', loginRequired, (req, res) => {
-    let u = currentUser(req)
-    let topics = Topic.all()
-    topics = topics.filter( (topic) => {
-        return topic.uid === u._id
-    })
+router.get('/', loginRequired, async (req, res) => {
+    let u = await currentUser(req)
+    let topics = await Topic.findAll('uid', u.id)
     args = {
         topics: topics,
         user: u
@@ -20,8 +17,8 @@ router.get('/', loginRequired, (req, res) => {
     res.render('setting.html', args)
 })
 
-router.get('/', (req, res) => {
-    let tags = Tag.all()
+router.get('/', async (req, res) => {
+    let tags = await Tag.all()
     let args = {
         tags: tags,
     }

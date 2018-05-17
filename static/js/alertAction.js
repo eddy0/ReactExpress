@@ -107,7 +107,7 @@ class Alert {
                 right: 0;
                 top: 0;
                 bottom: 0;
-                position: absolute;
+                position: fixed;
                 z-index: 998;
             }
             ._wd-alert-wrapper .wd-alert-box{

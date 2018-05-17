@@ -84,6 +84,18 @@ class CommentStore extends Model {
         return comment
     }
 
+    static async allList(id) {
+        const User = require('../models/user.js')
+        const Topic = require('../models/topic.js')
+        let comments = await Comment.findAll('uid', id)
+        comments = await Promise.all( comments.map( async (comment) => {
+            let author = await User.get(comment.uid)
+            let topic = await Topic.get(comment.topicId)
+            return {...comment._doc, author, topic }
+        }))
+        return comments
+    }
+
 
 
 

@@ -51,12 +51,10 @@ router.get('/topic/:id',  loginRequired, async (req, res) => {
     let id = req.params.id
     let u = await currentUser(req)
     let topic = await Topic.detail(u, id)
-
     if (topic !== null){
         let tags = await Tag.all()
-        let author =  await topic.user()
+        let author =  await User.get(topic.uid)
         let comments = await Comment.commentByTopic(id)
-
 
         let args = {
             topic: topic,

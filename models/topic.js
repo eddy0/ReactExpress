@@ -43,7 +43,6 @@ const TopicSchema = new Schema({
     },
 })
 
-
 class TopicStore extends Model{
     static async create(form) {
         const len = random()
@@ -126,13 +125,29 @@ class TopicStore extends Model{
         return this
     }
 
+    static async topicByActions(id, action) {
+        const User = require('../models/user.js')
+        let topics = await Topic.all()
+        topics = await Promise.all( topics.map( async (topic) => {
+            if (topic[action].includes(id)) {
+                let author = await User.get(topic.uid)
+                return {...topic._doc, author}
+            }
+        }))
+        return topics
+    }
+
+    static async allList(id) {
+        const User = require('../models/user.js')
+        let topics = await Topic.findAll('uid', id)
+        topics = await Promise.all( topics.map( async (topic) => {
+            let author = await User.get(topic.uid)
+            return {...topic._doc, author }
+        }))
+        return topics
+    }
 
 
-    // async tag() {
-    //     const Tag = require('./tag')
-    //     const u = await User.get(this.uid)
-    //     return u
-    // }
 
 }
 
