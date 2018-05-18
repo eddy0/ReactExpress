@@ -16,7 +16,8 @@ remove(id)
 class Ajax {
     constructor() {
         // this.baseUrl = 'http://111.230.7.89'
-        this.baseUrl = 'http://localhost:7000'
+        // this.baseUrl = 'http://localhost:7000'
+        this.baseUrl = 'http://45.77.155.210'
     }
 
     ajaxImg({ path, data}) {
