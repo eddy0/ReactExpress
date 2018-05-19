@@ -73,7 +73,7 @@ router.post('/new', ajaxloginRequired, async (req, res) => {
         message: '',
         data: m
     }
-    args.data.next = `${ req.protocol}://${req.get('host')}`
+    args.data.next = `${ req.protocol}://${req.headers.Host}`
     res.json(args)
 })
 
