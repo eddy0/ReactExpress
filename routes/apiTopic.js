@@ -73,7 +73,8 @@ router.post('/new', ajaxloginRequired, async (req, res) => {
         message: '',
         data: m
     }
-    args.data.next = `${ req.protocol}://${req.headers.Host}`
+    // args.data.next = `${ req.protocol}://${req.headers.Host}`
+    args.data.next = `http://45.77.155.210`
     res.json(args)
 })
 
