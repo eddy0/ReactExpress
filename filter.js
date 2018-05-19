@@ -21,18 +21,18 @@ const formattedTime = (date) => {
     let diff = parseTime(date)
     let times = ['year', 'month', 'day', 'hour', 'minute']
     let mapper = {
-        'year': '年前',
-        'month': '个月前',
-        'day':'天前',
-        'hour': '小时前',
-        'minute': '分钟前',
+        'year': 'years ago',
+        'month': 'months ago',
+        'day':'days ago',
+        'hour': 'hour ago',
+        'minute': 'minute ago',
     }
     let index = diff.findIndex( (t) => {
         return t > 0
     })
     if (index === -1){
 
-        return '刚刚'
+        return 'just now'
     } else{
         let t = times[index]
         str = String(diff[index])
